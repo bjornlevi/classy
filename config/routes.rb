@@ -1,4 +1,6 @@
 Coblogger::Application.routes.draw do
+  get "dashboard/home"
+  get "dashboard/help"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
