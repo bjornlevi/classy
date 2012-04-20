@@ -4,15 +4,7 @@ describe "Dashboard" do
   describe "Root" do
     it "should have content 'Welcome" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      visit ''
-      page.should have_content('Welcome')
-    end
-  end
-
-  describe "Home page" do
-    it "should have content 'Welcome" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      visit '/dashboard/home'
+      visit root_path
       page.should have_content('Welcome')
     end
   end
@@ -20,7 +12,7 @@ describe "Dashboard" do
   describe "Help page" do
 
     it "should have the content 'Help'" do
-      visit '/dashboard/help'
+      visit help_path
       page.should have_content('Help')
     end
   end
@@ -28,7 +20,7 @@ describe "Dashboard" do
   describe "About page" do
 
     it "should have the content 'About'" do
-      visit '/dashboard/about'
+      visit about_path
       page.should have_content('About')
     end
   end
