@@ -1,8 +1,12 @@
 Coblogger::Application.routes.draw do
+  get "users/new"
+
   root :to => "dashboard#home"
   match '/help',    to: 'dashboard#help'
   match '/about',   to: 'dashboard#about'
   match '/contact', to: 'dashboard#contact'
+
+  match '/signup',  to: 'users#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

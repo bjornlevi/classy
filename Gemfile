@@ -22,6 +22,7 @@ end
 
 gem 'jquery-rails'
 gem 'bootstrap-sass', '2.0.2'
+gem 'bcrypt-ruby'
 
 group :development, :test do
   gem 'rspec-rails', '2.9.0'
