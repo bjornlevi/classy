@@ -23,6 +23,8 @@ end
 gem 'jquery-rails'
 gem 'bootstrap-sass', '2.0.2'
 gem 'bcrypt-ruby'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'rspec-rails', '2.9.0'
