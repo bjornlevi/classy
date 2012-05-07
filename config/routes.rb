@@ -1,6 +1,7 @@
 Coblogger::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :blurts, only: [:create, :destroy]
 
   root :to => "dashboard#home"
   match '/help',    to: 'dashboard#help'

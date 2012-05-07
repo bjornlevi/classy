@@ -1,4 +1,19 @@
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.email %>
-</h1>
+<div class="row">
+ 	<div class="span4">
+ 		<div>
+  			<%= gravatar_for @user %>
+  		</div>
+  		<div>
+  			<%= @user.email %>
+  		</div>
+	</div>
+	<div class="span8">
+		<% if @user.blurts.any? %>
+			<h3>Blurts (<%= @user.blurts.count %>)</h3>
+			<ol class="blurts">
+				<%= render @blurts %>
+			</ol>
+			<%= will_paginate @blurts %>
+		<% end %>
+	</div>
+</div>

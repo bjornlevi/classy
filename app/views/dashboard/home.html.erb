@@ -1,11 +1,28 @@
-<div class="center hero-unit">
-  <h1>Welcome to the CoBlogger</h1>
+<% if signed_in? %>
+	<div class="row">
+		<div class="span2">
+			<%= render 'shared/user_info' %>
+		</div>
+		<div class="span10">
+			<aside>
+				<%= render 'shared/blurt_form' %>
+			</aside>
+			<div>
+				<h3>Micropost Feed</h3>
+				<%= render 'shared/feed' %>
+			</div>
+		</div>
+	</div>  
+<% else %>
+	<div class="center hero-unit">
+	  <h1>Welcome to the CoBlogger</h1>
 
-  <h2>
-    This is the welcome page for the CoBlogger, a collaborative learning environment
-  </h2>
+	  <h2>
+	    This is the welcome page for the CoBlogger, a collaborative learning environment
+	  </h2>
 
-  <%= link_to "Sign up now!", '/signup', class: "btn btn-large btn-primary" %>
-</div>
+	  <%= link_to "Sign up now!", '/signup', class: "btn btn-large btn-primary" %>
+	</div>
 
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+	<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<% end %>

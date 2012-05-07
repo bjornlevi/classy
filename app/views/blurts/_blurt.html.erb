@@ -1,0 +1,11 @@
+<li>
+  <span class="content"><%= blurt.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(blurt.created_at) %> ago.
+  </span>
+  <% if current_user?(blurt.user) %>
+    <%= link_to "delete", blurt, method:  :delete,
+                                     confirm: "You sure?",
+                                     title:   blurt.content %>
+  <% end %>
+</li>
