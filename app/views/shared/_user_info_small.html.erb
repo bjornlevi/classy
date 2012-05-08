@@ -1,0 +1,10 @@
+<section>
+	<% if signed_in? %>
+		<a href="<%= user_path(current_user) %>">
+		  <%= gravatar_for current_user, size=40%>
+		</a>
+	  	<%= current_user.email %>
+	<% else %>
+		&nbsp;
+	<% end %>
+</section>

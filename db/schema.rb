@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507154453) do
+ActiveRecord::Schema.define(:version => 20120508013245) do
 
   create_table "blurts", :force => true do |t|
     t.string   "content"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(:version => 20120507154453) do
   end
 
   add_index "blurts", ["user_id", "created_at"], :name => "index_blurts_on_user_id_and_created_at"
+
+  create_table "friendships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "friendships", ["friend_id"], :name => "index_friendships_on_friend_id"
+  add_index "friendships", ["user_id", "friend_id"], :name => "index_friendships_on_user_id_and_friend_id", :unique => true
+  add_index "friendships", ["user_id"], :name => "index_friendships_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"

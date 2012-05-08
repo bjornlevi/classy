@@ -4,6 +4,11 @@ class User < ActiveRecord::Base
 
   has_many :blurts, dependent: :destroy
 
+  has_many :friendships
+  has_many :friends, :through => :friendships, :dependent => :destroy
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user, :dependent => :destroy
+  
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
@@ -15,8 +20,19 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   def feed
-    # This is preliminary. See "Following users" for the full implementation.
-    Blurt.where("user_id = ?", id)
+    Blurt.from_friends(self)
+  end
+
+  def following?(other_user)
+    friendships.find_by_friend_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    friendships.create!(friend_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    friendships.find_by_friend_id(other_user.id).destroy
   end
 
 private

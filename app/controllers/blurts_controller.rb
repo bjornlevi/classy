@@ -6,9 +6,9 @@ class BlurtsController < ApplicationController
   end
 
 def create
-    @blurt = current_user.microposts.build(params[:blurt])
+    @blurt = current_user.blurts.build(params[:blurt])
     if @blurt.save
-      flash[:success] = "Micropost created!"
+      flash[:success] = "Blurt created!"
       redirect_to root_path
     else
       @feed_items = []

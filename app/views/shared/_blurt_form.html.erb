@@ -1,4 +1,4 @@
-<%= form_for(@blurt) do |f| %>
+<%= form_for(@blurts) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose new blurt..." %>

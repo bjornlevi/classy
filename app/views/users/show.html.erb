@@ -1,13 +1,9 @@
 <div class="row">
  	<div class="span4">
- 		<div>
-  			<%= gravatar_for @user %>
-  		</div>
-  		<div>
-  			<%= @user.email %>
-  		</div>
+ 		<%= render 'shared/user_info' %>
 	</div>
 	<div class="span8">
+		<%= render 'follow_form' if signed_in? %>
 		<% if @user.blurts.any? %>
 			<h3>Blurts (<%= @user.blurts.count %>)</h3>
 			<ol class="blurts">
