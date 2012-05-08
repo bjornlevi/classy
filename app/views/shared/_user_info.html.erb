@@ -9,27 +9,9 @@
 <section>
 	<%= pluralize(@user.blurts.count, "blurt") %>
 </section>
-<section>
-	<h4>Following (<%= @user.friendships.count %>)</h4>
-	<% if @user.friendships.empty? %>
-		&nbsp;
-	<% else %>
-		<% for friendship in @user.friendships %>
-			<a href="<%= user_path(friendship.friend) %>">
-				<%= gravatar_for friendship.friend, size=20 %>
-			</a>
-		<% end %>
-	<% end %>
+<section id="section_following">
+	<%= render 'shared/following' %>
 </section>
-<section>
-	<h4>Followers (<%= @user.inverse_friendships.count %>)</h4>
-	<% if @user.inverse_friendships.empty? %>
-		&nbsp;
-	<% else %>
-		<% for friendship in @user.inverse_friendships %>
-			<a href="<%= user_path(friendship.friend) %>">
-				<%= gravatar_for friendship.friend, size=20 %>
-			</a>
-		<% end %>
-	<% end %>
+<section id="section_followers">
+	<%= render 'shared/followers' %>
 </section>

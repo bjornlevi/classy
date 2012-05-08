@@ -1,4 +1,4 @@
-<%= form_for(current_user.friendships.find_by_friend_id(@user),
+<%= form_for(@user.inverse_friendships.find_by_user_id(current_user),
              html: { method: :delete },
              remote: true) do |f| %>
   <%= f.submit "Unfollow", class: "btn btn-large" %>

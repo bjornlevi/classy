@@ -1,2 +1,3 @@
 $("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>")
-$("#followers").html('<%= @user.followers.count %>')
+$("#nr_followers").html('(<%= @user.friendships.count %>)')
+$("#section_followers").html("<%= escape_javascript(render('shared/followers')) %>")
