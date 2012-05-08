@@ -1,12 +1,12 @@
 <% @user ||= current_user %>
 <div class="friendship_stats">
-  <a href="<%= friends_user_path(@user) %>">
+  <a href="<%= following_user_path(@user) %>">
     <strong id="friends" class="stat">
       <%= @user.friends.count %>
     </strong>
     following
   </a>
-  <a href="<%= inverse_friend_user_path(@user) %>">
+  <a href="<%= followers_user_path(@user) %>">
     <strong id="inverse_friends" class="stat">
       <%= @user.inverse_friends.count %>
     </strong>

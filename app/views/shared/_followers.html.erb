@@ -1,4 +1,4 @@
-<h4>Followers <span id="nr_followers">(<%= @user.inverse_friendships.count %>)</span></h4>
+<h4><%= link_to "Followers", followers_user_path(@user) %> <span id="nr_followers">(<%= @user.inverse_friendships.count %>)</span></h4>
 <% if @user.inverse_friendships.empty? %>
 	&nbsp;
 <% else %>
