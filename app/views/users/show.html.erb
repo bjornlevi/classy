@@ -3,13 +3,16 @@
  		<%= render 'shared/user_info' %>
 	</div>
 	<div class="span8">
-		<%= render 'follow_form' if signed_in? %>
+		<aside>
+			<%= render 'shared/blurt_form' if signed_in?%>		
+			<%= render 'follow_form' if signed_in? %>
+		</aside>
 		<% if @user.blurts.any? %>
 			<h3>Blurts (<%= @user.blurts.count %>)</h3>
 			<ol class="blurts">
-				<%= render @blurts %>
+				<%= render @display_blurts %>
 			</ol>
-			<%= will_paginate @blurts %>
+			<%= will_paginate @display_blurts %>
 		<% end %>
 	</div>
 </div>

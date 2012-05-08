@@ -8,7 +8,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @blurts = @user.blurts.paginate(page: params[:page])
+    @blurts = current_user.blurts.build if signed_in?
+    @display_blurts = @user.blurts.paginate(page: params[:page])
   end
   
   def index

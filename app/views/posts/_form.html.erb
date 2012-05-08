@@ -1,0 +1,12 @@
+<%= form_for(@post) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content, :cols => "30", :rows => "10" %>
+
+  <%= f.submit "Publish", class: "btn btn-large btn-primary" %>
+
+<% end %>

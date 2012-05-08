@@ -1,7 +1,9 @@
-<%= form_for(@blurts) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new blurt..." %>
-  </div>
-  <%= f.submit "Blurt", class: "btn btn-medium btn-primary" %>
+<% if current_user?(@user) %>
+	<%= form_for(@blurts) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+	  <div class="field">
+	    <%= f.text_area :content, placeholder: "Compose new blurt..." %>
+	  </div>
+	  <%= f.submit "Blurt", class: "btn btn-medium btn-primary" %>
+	<% end %>
 <% end %>

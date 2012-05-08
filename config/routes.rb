@@ -6,6 +6,7 @@ Coblogger::Application.routes.draw do
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :blurts, only: [:create, :destroy]
+  resources :posts
   resources :friendships, only: [:create, :destroy]
 
   root :to => "dashboard#home"

@@ -5,7 +5,7 @@ class BlurtsController < ApplicationController
   def index
   end
 
-def create
+  def create
     @blurt = current_user.blurts.build(params[:blurt])
     if @blurt.save
       flash[:success] = "Blurt created!"
