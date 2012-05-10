@@ -4,7 +4,7 @@
     Posted <%= time_ago_in_words(blurt.created_at) %> ago.
   </span>
   <% if current_user?(blurt.user) %>
-    <%= link_to "delete", blurt, method:  :delete,
+    <%= link_to raw("<i class='icon-delete'></i>"), blurt, method:  :delete,
                                      confirm: "You sure?",
                                      title:   blurt.content %>
   <% end %>

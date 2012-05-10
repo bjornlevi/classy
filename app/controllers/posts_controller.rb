@@ -14,6 +14,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = User.find(@post.user)
+  rescue
+    render 'error'
   end
 
   def new
@@ -58,7 +60,10 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_back_or root_path
+    respond_to do |format|
+      format.html { redirect_back_or root_path }
+      format.json { head :no_content }
+    end
   end
 
   private

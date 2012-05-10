@@ -11,13 +11,12 @@
         <div class="span4">        
           <nav>
             <ul class="nav pull-right">
-              <li><%= link_to "Home", root_path %></li>
-              <li><%= link_to "New Post", new_post_path%></li>
+              <li><%= link_to raw("<i class='icon-home icon-white'></i>"), root_path %></li>
               <% if signed_in? %>
-                <li><%= link_to "Users", users_path %></li>
+                <li><%= link_to raw("<i class='icon-info-sign icon-white'></i>"), users_path %></li>
                 <li id="fat-menu" class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Account <b class="caret"></b>
+                    <i class='icon-user icon-white'></i> <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
                     <li><%= link_to "Profile", current_user %></li>

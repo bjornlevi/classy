@@ -5,7 +5,7 @@
 Posted <%= time_ago_in_words(post.created_at) %> ago.
 </span>
 <% if current_user?(post.user) %>
-	<%= link_to "delete", post, method:  :delete,
+	<%= link_to raw("<i class='icon-delete'></i>"), post, method:  :delete,
 	                                 confirm: "You sure?",
 	                                 title:   post.content %>
 	<%= link_to "edit", edit_post_path %>                                 

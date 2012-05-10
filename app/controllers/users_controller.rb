@@ -12,6 +12,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @blurts = current_user.blurts.build if signed_in?
     @feed_items = (@user.posts + @user.blurts).paginate(page: params[:page])
+  rescue 
+    render 'error'
   end
   
   def index
