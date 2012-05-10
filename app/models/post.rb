@@ -3,12 +3,13 @@ class Post < ActiveRecord::Base
 	attr_accessible :content, :title, :user_id
 
 	belongs_to :user
+	has_many :comments
 
 	validates :user_id, presence: true
 	validates :content, presence: true
 	validates :title, presence: true
 
-	default_scope order: 'posts.created_at DESC'
+	default_scope order: 'posts.updated_at DESC'
 
 	def self.from_friends(user)
 		friend_ids = user.friend_ids.join(', ')

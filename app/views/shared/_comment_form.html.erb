@@ -1,0 +1,11 @@
+<h4>Comments</h4>
+<div>
+	<%= form_for([@post, @post.comments.build]) do |f| %>
+	   	<div class="field">
+	    	<%= f.text_area :content, placeholder: "Compose new comment..." %>
+	  	</div>
+	  	<div class="actions">
+	    	<%= f.submit "Comment", class: "btn btn-medium btn-primary" %>
+	    </div>
+	<% end %>
+</div>

@@ -1,0 +1,14 @@
+<li>
+	<span class="user_image_comment">
+		<%= link_to gravatar_for(comment.user, size=40), comment.user %>
+	</span>
+	<span class="content"><%= comment.content %></span>
+	<span class="timestamp">
+		Commented <%= time_ago_in_words(comment.created_at) %> ago.
+	</span>
+	<% if current_user.id == comment.user.id %>
+		<%= link_to raw("<i class='icon-trash'></i>"), comment, method:  :delete,
+		                                 confirm: "You sure?",
+		                                 title:   comment.content %>                              
+	<% end %>
+</li>

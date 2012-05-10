@@ -9,12 +9,15 @@
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.updated_at) %> ago.
     </span>
-  <% if current_user.id == feed_item.user.id %>
+    <% if feed_item.class == Post %>
+      <%= feed_item.comments.count %> comments
+    <% end %>  
+    <% if current_user.id == feed_item.user.id %>
     <%= link_to raw("<i class='icon-trash'></i>"), feed_item, method:  :delete,
                                      confirm: "You sure?",
                                      title:   feed_item.content %>
     <% if feed_item.class == Post %>
-      <%= link_to raw("<i class='icon-pencil'></i>"), feed_item %> 
+      <%= link_to raw("<i class='icon-edit'></i>"), edit_post_path(feed_item) %> 
     <% end %>
   <% end %>
 </li>

@@ -4,5 +4,11 @@
 	</div>
 	<div class="span8">
 		<%= render @post %>
+		<ol>
+			<%= render partial: 'comments/comment', collection: @comments %>
+		</ol>
+		<aside>
+			<%= render 'shared/comment_form' %>
+		</aside>
 	</div>
 </div>

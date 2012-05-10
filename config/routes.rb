@@ -6,8 +6,11 @@ Coblogger::Application.routes.draw do
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :blurts, only: [:create, :destroy]
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
   resources :friendships, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
 
   root :to => "dashboard#home"
   match '/help',    to: 'dashboard#help'
