@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   def feed
-    Blurt.from_friends(self)
+    (Blurt.from_friends(self) + Post.from_friends(self)).sort_by(&:updated_at).reverse
   end
 
   def following?(other_user)

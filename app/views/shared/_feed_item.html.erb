@@ -3,6 +3,9 @@
     <span class="user">
       <%= link_to feed_item.user.email, feed_item.user %>
     </span>
+    <% if feed_item.respond_to?(:title) %>
+      <span class="content"><strong><%= link_to feed_item.title, feed_item %></strong></span>
+    <% end %>
     <span class="content"><%= feed_item.content %></span>
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.created_at) %> ago.

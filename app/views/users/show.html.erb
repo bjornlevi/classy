@@ -8,11 +8,11 @@
 			<%= render 'follow_form' if signed_in? %>
 		</aside>
 		<% if @user.blurts.any? %>
-			<h3>Blurts (<%= @user.blurts.count %>)</h3>
-			<ol class="blurts">
-				<%= render @display_blurts %>
+			<h3>Posts (<%= @user.blurts.count + @user.posts.count %>)</h3>
+			<ol class="posts">
+				<%= render 'shared/feed' %>
 			</ol>
-			<%= will_paginate @display_blurts %>
+			<%= will_paginate @feed_items %>
 		<% end %>
 	</div>
 </div>

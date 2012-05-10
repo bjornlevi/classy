@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
@@ -9,7 +11,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @blurts = current_user.blurts.build if signed_in?
-    @display_blurts = @user.blurts.paginate(page: params[:page])
+    @feed_items = (@user.posts + @user.blurts).paginate(page: params[:page])
   end
   
   def index

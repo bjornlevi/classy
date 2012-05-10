@@ -36,6 +36,26 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+   
+    respond_to do |format|
+      if @post.update_attributes(params[:post])
+        flash[:success] = "Post updated successfully!"
+        format.html  { redirect_to(@post) }
+        format.json  { head :no_content }
+      else
+        format.html  { render :action => "edit" }
+        format.json  { render :json => @post.errors,
+                      :status => :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     @post.destroy
     redirect_back_or root_path
