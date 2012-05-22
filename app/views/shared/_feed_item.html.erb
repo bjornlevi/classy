@@ -9,7 +9,9 @@
       <span><%= feed_item.user.email %></span> <!-- TODO: replace with user name -->
     <% end %>
 
-    <span class="content"><%= feed_item.content %></span>
+    <span class="content">
+      <%= safe_html_output feed_item.content %>
+    </span>
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.updated_at) %> ago.
     </span>

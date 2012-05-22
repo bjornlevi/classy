@@ -1,7 +1,7 @@
 
 <div class="post">
 	<span class="title"><strong><%= post.title %></strong></span>
-	<span class="content"><%= post.content %></span>
+	<span class="content"><%= safe_html_output post.content %></span>
 	<span class="timestamp">
 		Posted <%= time_ago_in_words(post.created_at) %> ago.
 	</span>
