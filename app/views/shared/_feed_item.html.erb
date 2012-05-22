@@ -1,23 +1,31 @@
-<li id="<%= feed_item.id %>">
-  <%= link_to gravatar_for(feed_item.user, size = 64), feed_item.user %>
+<li id="<%= feed_item.id %>" <% if (feed_item.class == Post) %> class="feed_item_post" <% end %>>
+  <div>
+    <%= link_to gravatar_for(feed_item.user, size = 64), feed_item.user %>
     <% if feed_item.respond_to?(:title) %>
-      <span class="content"><strong><%= link_to feed_item.title, feed_item %></strong></span>
+      <span class="content">
+        <strong><%= link_to feed_item.title, feed_item %></strong> 
+      </span>
     <% else %>
-      <span>&nbsp;</span>
+      <span><%= feed_item.user.email %></span> <!-- TODO: replace with user name -->
     <% end %>
+
     <span class="content"><%= feed_item.content %></span>
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.updated_at) %> ago.
     </span>
-    <% if feed_item.class == Post %>
-      <%= feed_item.comments.count %> comments
-    <% end %>  
-    <% if current_user.id == feed_item.user.id %>
-    <%= link_to raw("<i class='icon-trash'></i>"), feed_item, method:  :delete,
-                                     confirm: "You sure?",
-                                     title:   feed_item.content %>
-    <% if feed_item.class == Post %>
-      <%= link_to raw("<i class='icon-edit'></i>"), edit_post_path(feed_item) %> 
+
+    <% if current_user.try(:id) && current_user.id == feed_item.user.id %>
+      <%= link_to raw("<i class='icon-trash'></i>"), feed_item, method:  :delete,
+                                       confirm: "You sure?",
+                                       title:   feed_item.content %>
+      <% if feed_item.class == Post %>
+        <%= link_to raw("<i class='icon-edit'></i>"), edit_post_path(feed_item) %> 
+      <% end %>
     <% end %>
-  <% end %>
+    <span class="content">
+      <% if feed_item.class == Post %>
+        <%= feed_item.comments.count %> <i class='icon-comment'></i>
+      <% end %> 
+    </span>
+  </div>
 </li>

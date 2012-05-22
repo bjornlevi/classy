@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 
 	belongs_to :user
 	has_many :comments
+	has_many :likes
 
 	validates :user_id, presence: true
 	validates :content, presence: true
@@ -14,6 +15,14 @@ class Post < ActiveRecord::Base
 	def self.from_friends(user)
 		friend_ids = user.friend_ids.join(', ')
 		where("user_id IN (?) OR user_id = ?", friend_ids, user)
+	end
+
+	def add_like(user)
+		likes.create!(user_id: user)
+	end
+
+	def destroy_like(user)
+		likes.find_by_user_id(user.id).destroy
 	end
 
 end

@@ -1,12 +1,19 @@
 
-<span class="title"><strong><%= post.title %></strong></span>
-<span class="content"><%= post.content %></span>
-<span class="timestamp">
-	Posted <%= time_ago_in_words(post.created_at) %> ago.
-</span>
-<% if current_user?(post.user) %>
-	<%= link_to raw("<i class='icon-trash'></i>"), post, method:  :delete,
-	                                 confirm: "You sure?",
-	                                 title:   post.content %>
-	<%= link_to raw("<i class='icon-edit'></i>"), edit_post_path %>                               
-<% end %>
+<div class="post">
+	<span class="title"><strong><%= post.title %></strong></span>
+	<span class="content"><%= post.content %></span>
+	<span class="timestamp">
+		Posted <%= time_ago_in_words(post.created_at) %> ago.
+	</span>
+	<span class="post_edit_actions">
+		<% if current_user?(@post.user) %>
+			<%= link_to raw("<i class='icon-trash'></i>"), post, method:  :delete,
+			                                 confirm: "You sure?",
+			                                 title:   post.content %>
+			<%= link_to raw("<i class='icon-edit'></i>"), edit_post_path %>                               
+		<% end %>
+	</span>
+	</span class="post_feedback_actions">
+		<%= render 'like_form' if signed_in? %>
+	</span>
+</div>

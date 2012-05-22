@@ -1,0 +1,7 @@
+<%= form_for(@post.likes.find_by_user_id(current_user),
+             html: { method: :delete },
+             remote: true) do |f| %>
+	<div><%= f.hidden_field :post_id %></div>             
+	<span id="nr_likes"><i class='icon-thumbs-up'></i><%= @post.likes.count %></span>
+	<%= link_to raw("<i class='icon-minus-sign'></i>"), '#',  :onclick=>"$('#like_form form').submit()" %>
+<% end %>

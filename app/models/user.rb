@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   
   has_many :posts
   has_many :comments
+  has_many :likes
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -36,6 +37,10 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     friendships.find_by_friend_id(other_user.id).destroy
+  end
+
+  def likes?(post)
+    self.likes.find_by_post_id(post)
   end
 
 private

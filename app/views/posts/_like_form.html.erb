@@ -1,0 +1,9 @@
+<% unless current_user?(@user) %>
+  <div id="like_form">
+  <% if current_user.likes?(@post) %>
+    <%= render 'unlike' %>
+  <% else %>
+    <%= render 'like' %>
+  <% end %>
+  </div>
+<% end %>

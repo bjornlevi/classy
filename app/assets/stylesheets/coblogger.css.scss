@@ -144,6 +144,20 @@ input, textarea, select, .uneditable-input {
   }
 }
 
+/* posts */
+.post
+{
+
+}
+
+.feed_item_post
+{
+  div:hover
+  {
+    background-color: $grayLighter;
+  }
+}
+
 /* blurts */
 
 .blurts {
