@@ -7,4 +7,8 @@ module ApplicationHelper
 			s.html_safe
 		end
 	end
+
+	def summarize(body, length)
+		simple_format(truncate(body.gsub(/<\/?.*?>/,  ""), :length => length)).gsub(/<\/?.*?>/,  "")
+	end
 end

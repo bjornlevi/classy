@@ -10,14 +10,14 @@
     <% end %>
 
     <span class="content">
-      <%= safe_html_output feed_item.content %>
+      <%= safe_html_output summarize(feed_item.content, 300)%>
     </span>
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.updated_at) %> ago.
     </span>
 
     <% if current_user.try(:id) && current_user.id == feed_item.user.id %>
-      <%= link_to raw("<i class='icon-trash'></i>"), feed_item, method:  :delete,
+      <%= link_to raw("<i class='icon-trashl'></i>"), feed_item, method:  :delete,
                                        confirm: "You sure?",
                                        title:   feed_item.content %>
       <% if feed_item.class == Post %>
