@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class DashboardController < ApplicationController
   def home
   	@user = current_user if signed_in?

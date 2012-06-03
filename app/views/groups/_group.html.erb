@@ -1,0 +1,15 @@
+<div class="group">
+	<span class="title"><strong><%= @group.name %></strong></span>
+	<span class="content"><%= safe_html_output @group.description %></span>
+	<span class="timestamp">
+		Posted <%= time_ago_in_words(@group.created_at) %> ago.
+	</span>
+	<span class="post_edit_actions">
+		<% if current_user?(@group.user) %>
+			<%= link_to raw("<i class='icon-trash'></i>"), group, method:  :delete,
+			                                 confirm: "You sure?",
+			                                 title:   @group.name %>
+			<%= link_to raw("<i class='icon-edit'></i>"), edit_group_path %>                               
+		<% end %>
+	</span>
+</div>
