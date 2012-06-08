@@ -1,5 +1,15 @@
 @import "bootstrap";
 
+/* dashboard */
+.dashboard_box
+{
+  height: 200px;
+  overflow: hidden; 
+}
+.dashboard_box:hover
+{
+  overflow-y: scroll; 
+}
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
