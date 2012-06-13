@@ -5,8 +5,10 @@
         <div class="span4">
           <%= render 'shared/user_info_small' %>
         </div>
-        <div class="span4 center">
-          <%= link_to "CoBlogger", '', id: "logo" %>
+        <div class="span4">
+          <nav>
+             <%= render partial: 'layouts/groups', collection: @header_groups %>
+          </nav>
         </div>
         <div class="span4">        
           <nav>

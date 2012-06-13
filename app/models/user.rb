@@ -13,6 +13,12 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :likes
 
+  has_many :group_members
+  has_many :groups, :through => :group_members
+
+  has_many :group_applications
+  has_many :applications, :through => :group_applications, :source => :group
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 

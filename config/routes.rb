@@ -13,6 +13,8 @@ Coblogger::Application.routes.draw do
   resources :likes, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
 
+  resources :groups
+
   root :to => "dashboard#home"
   match '/help',    to: 'dashboard#help'
   match '/about',   to: 'dashboard#about'
