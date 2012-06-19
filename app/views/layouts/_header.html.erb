@@ -2,38 +2,11 @@
   <div class="navbar-inner">
     <div class="container">
       <div class="row">
-        <div class="span4">
-          <%= render 'shared/user_info_small' %>
+        <div class="span6">
+          <%= render partial: 'layouts/groups' %>
         </div>
-        <div class="span4">
-          <nav>
-             <%= render partial: 'layouts/groups', collection: @header_groups %>
-          </nav>
-        </div>
-        <div class="span4">        
-          <nav>
-            <ul class="nav pull-right">
-              <li><%= link_to raw("<i class='icon-home icon-white'></i>"), root_path %></li>
-              <% if signed_in? %>
-                <li><%= link_to raw("<i class='icon-info-sign icon-white'></i>"), users_path %></li>
-                <li id="fat-menu" class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class='icon-user icon-white'></i> <b class="caret"></b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><%= link_to "Profile", current_user %></li>
-                    <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-                    <li class="divider"></li>
-                    <li>
-                      <%= link_to "Sign out", signout_path, method: "delete" %>
-                    </li>
-                  </ul>
-                </li>
-              <% else %>
-                <li><%= link_to "Sign in", signin_path %></li>
-              <% end %>
-            </ul>
-          </nav>
+        <div class="span6">
+          <%= render partial: 'layouts/user_header' %>
         </div>
       </div>
     </div>

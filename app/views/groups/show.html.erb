@@ -1,3 +1,6 @@
+<%= link_to raw("<i class='icon-edit'></i>"), edit_group_path %>
+<%= link_to raw("<i class='icon-remove'></i>"), edit_group_path %>
+
 <h1><%= @group.name %></h1>
 <h3>Created by: <%= User.find(@group.user_id).email %></h3>
 <p><%= @group.description %></p>

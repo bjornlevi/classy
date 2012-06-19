@@ -29,8 +29,35 @@ class GroupsController < ApplicationController
     @group.status = "open"
     @group.user_id = current_user.id
     if @group.save
+      @header_groups << @group
+      GroupMember.create(group_id: @group.id, user_id: @group.user_id, role: "admin")
       flash[:success] = "Group created!"
-      redirect_to root_path
+      redirect_to groups_path
+    else
+      flash[:error] = @group.errors
+      render 'new'
+    end
+  end
+
+  def edit
+    @group = Group.find(params[:id])
+  end
+
+  def update
+    @group = Group.find(params[:id])
+
+    respond_to do |format|
+      if @group.update_attributes(params[:group])
+        #you can only edit the current_group
+        @current_group = @group.name
+        flash[:success] = "Group updated successfully!"
+        format.html  { redirect_to(@group) }
+        format.json  { head :no_content }
+      else
+        format.html  { render :action => "edit" }
+        format.json  { render :json => @group.errors,
+                      :status => :unprocessable_entity }
+      end
     end
   end
 

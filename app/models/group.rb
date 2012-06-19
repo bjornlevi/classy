@@ -8,4 +8,7 @@ class Group < ActiveRecord::Base
   has_many :applications, :through => :group_applications, :source => :user
   
   has_many :posts
+
+  validates :name, presence: true, length: { within: 3..50 }, 
+  	uniqueness: { case_sensitive: false }
 end
