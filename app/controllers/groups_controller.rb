@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
       redirect_to groups_path
     else
       flash[:error] = @group.errors
-      render 'new'
+      redirect_to new_group_path
     end
   end
 

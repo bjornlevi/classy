@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the CoBlogger!"
       redirect_to @user
     else
-      render 'new'
+      render new_user_path
     end
   end
 
