@@ -5,6 +5,8 @@
 		<th>Creator</th>
 		<th>Created</th>
 		<th>#Members</th>
+		<th></th>
+		<th></th>
 	</thead>
 	<% for group in @groups %>
 		<tr>
@@ -12,6 +14,8 @@
 			<td><%= User.find(group.user_id).email %></td>
 			<td><%= time_ago_in_words(group.created_at) %></td>
 			<td><%= group.users.count %></td>
+			<td><%= button_to "Edit", edit_group_path(group), class: "btn btn-mini btn-primary" %></td>
+			<td><%= button_to "Destroy", group, confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-primary" %></td>
 		</tr>
 	<% end %>
 </table>

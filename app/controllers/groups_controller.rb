@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   before_filter :correct_user, only: :destroy
 
   def index
-    @groups = Group.all
+    @groups = Group.where(status: "open")
 
     respond_to do |format|
       format.html  # index.html.erb
@@ -61,14 +61,22 @@ class GroupsController < ApplicationController
     end
   end
 
+  # DELETE /groups/1
+  # DELETE /groups/1.json
   def destroy
+    @group = Group.find(params[:id])
+    @group.status = "closed"
 
+    respond_to do |format|
+      format.html { redirect_to groups_path }
+      format.json { head :no_content }
+    end
   end
 
   private
 
     def correct_user
-      @group = current_user.groups.find_by_id(params[:id])
+      @group = Group.find(params[:id])#.owner?(current_user)
       redirect_to root_path if @group.nil?
     end
 end
