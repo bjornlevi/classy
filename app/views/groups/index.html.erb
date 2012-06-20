@@ -1,14 +1,17 @@
+<%= link_to "New group", new_group_path, class: "btn btn-medium btn-primary" %>
 <table>
 	<thead>
 		<th>Group</th>
 		<th>Creator</th>
 		<th>Created</th>
+		<th>#Members</th>
 	</thead>
 	<% for group in @groups %>
 		<tr>
-			<td><%= group.name %></td>
+			<td><%= link_to group.name, group_path(group) %></td>
 			<td><%= User.find(group.user_id).email %></td>
 			<td><%= time_ago_in_words(group.created_at) %></td>
+			<td><%= group.users.count %></td>
 		</tr>
 	<% end %>
 </table>

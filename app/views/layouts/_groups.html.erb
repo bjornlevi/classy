@@ -1,15 +1,26 @@
 <ul class="nav">
-	<li class="selected_group"><h3><%= @current_group.name %></h3></li>
+	<li class="selected_group">
+		<h3>
+			<%= if @current_group.nil? then 
+					"Classy" 
+				else 
+					@current_group.name 
+				end
+			%>
+		</h3>
+	</li>
 	<li id="fat-menu" class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			<b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
 			<% for group in @header_groups %>
-				<li><%= link_to group.name, group %></li>
+				<% if !group.nil? then %>
+					<li><%= link_to group.name, group %></li>
+				<% end %>
 			<% end %>
 			<li class="divider"></li>
-			<li><%= link_to "Edit #{group.name}", edit_group_path(group) %></li>
+			<li><%= if !group.nil? then link_to "Edit #{group.name}", edit_group_path(group) end %></li>
 			<li><%= link_to "Create class", new_group_path %></li>
 			<li><%= link_to "Join a class", groups_path %></li>
 		</ul>

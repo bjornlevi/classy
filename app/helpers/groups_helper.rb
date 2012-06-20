@@ -2,10 +2,11 @@ module GroupsHelper
 
 	def user_groups
 		if signed_in?
-			@header_groups = current_user.groups || ["Classy"]
-			@current_group = current_user.groups.first
+			@header_groups = current_user.groups
+			@current_group = current_user.groups.first #change to user preference
 		else
-			@current_group = ["Classy"]
+			@header_groups = []
+			@current_group = nil
 		end
 	end
 
