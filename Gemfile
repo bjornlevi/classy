@@ -29,6 +29,7 @@ gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'rspec-rails', '2.9.0'
+  gem 'faker'
 end
 
 group :test do

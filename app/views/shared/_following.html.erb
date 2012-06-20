@@ -1,10 +1,10 @@
-<h4><%= link_to "Following", following_user_path(@user) %> <span id="nr_following">(<%= @user.friendships.count %>)</span></h4>
+<h4><%= link_to "Following", following_user_path(@user) %> 
+	<span id="nr_following">(<%= @user.friendships.count %>)</span>
+</h4>
 <% if @user.friendships.empty? %>
 	&nbsp;
 <% else %>
 	<% for friendship in @user.friendships %>
-		<a href="<%= user_path(friendship.friend) %>">
-			<%= gravatar_for friendship.friend, size=20 %>
-		</a>
+		<%= link_to gravatar_for(friendship.friend, size=20), user_path(friendship.friend) %>
 	<% end %>
 <% end %>
