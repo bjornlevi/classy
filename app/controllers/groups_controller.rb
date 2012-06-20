@@ -11,8 +11,14 @@ class GroupsController < ApplicationController
     end    
   end
 
+  #lists open groups of current_user
+  def open
+    @groups = current_user.groups
+  end
+
   def show
     @group = Group.find(params[:id])
+    #check if user is a member then make it his current group
   end
 
   def new

@@ -22,4 +22,8 @@ module GroupsHelper
 		Group.find(group).applications 
 	end
 
+	def member?(user)
+
+	end
+
 end

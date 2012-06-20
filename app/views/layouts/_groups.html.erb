@@ -1,12 +1,7 @@
 <ul class="nav">
 	<li class="selected_group">
 		<h3>
-			<%= if @current_group.nil? then 
-					"Classy" 
-				else 
-					@current_group.name 
-				end
-			%>
+			<%= link_to "Classy", open_groups_path %>
 		</h3>
 	</li>
 	<li id="fat-menu" class="dropdown">
