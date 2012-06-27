@@ -10,6 +10,10 @@ module GroupsHelper
 		end
 	end
 
+	def can_post_to?(group)
+		Group.exists?(group)
+	end
+
 	def user_applications(user)
 		User.find(user).applications
 	end

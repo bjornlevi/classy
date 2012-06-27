@@ -1,0 +1,21 @@
+<%= link_to "New group", new_group_path, class: "btn btn-medium btn-primary" %>
+<table>
+	<thead>
+		<th>Group</th>
+		<th>Creator</th>
+		<th>Created</th>
+		<th>#Members</th>
+		<th></th>
+		<th></th>
+	</thead>
+	<% for group in @groups %>
+		<tr>
+			<td><%= link_to group.name, group_path(group) %></td>
+			<td><%= User.find(group.user_id).email %></td>
+			<td><%= time_ago_in_words(group.created_at) %></td>
+			<td><%= group.users.count %></td>
+			<td><%= button_to "Join", group_applications_path(group: group), class: "btn btn-mini btn-primary" %></td>
+			<td><%= button_to "Leave", group_member_path(group), confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-primary" %></td>
+		</tr>
+	<% end %>
+</table>

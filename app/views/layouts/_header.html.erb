@@ -2,10 +2,16 @@
   <div class="navbar-inner">
     <div class="container">
       <div class="row">
-        <div class="span6">
-          <%= render partial: 'layouts/groups' %>
+        <div class="span5">
+          <%= link_to "Classy", root_path, id: "logo" %>
+          <% if signed_in? %>
+            <%= render partial: 'layouts/groups' %>
+          <% end %>
         </div>
-        <div class="span6">
+        <% if signed_in? %>
+          <%= render partial: 'layouts/search' %>
+        <% end %>
+        <div class="span5">
           <%= render partial: 'layouts/user_header' %>
         </div>
       </div>

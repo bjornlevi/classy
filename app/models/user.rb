@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :group_applications
   has_many :applications, :through => :group_applications, :source => :group
 
+  has_one :admin
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 

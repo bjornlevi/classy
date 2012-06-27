@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   before_filter :correct_user, only: :destroy
 
   def index
-    @groups = Group.where(status: "open")
+    @groups = current_user.groups
 
     respond_to do |format|
       format.html  # index.html.erb
@@ -12,8 +12,8 @@ class GroupsController < ApplicationController
   end
 
   #lists open groups of current_user
-  def open
-    @groups = current_user.groups
+  def all
+    @groups = Group.where(status: "open")
   end
 
   def show

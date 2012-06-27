@@ -21,6 +21,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    if params.has_key?(:group_id) and can_post_to?(params[:group_id]) then #and allowed
+      @group = Group.find(params[:group_id])
+    else
+      flash[:error] = "You are not allowed to post to this group"
+      redirect_to root_path
+      return
+    end
 
     respond_to do |format|
       format.html  # new.html.erb
@@ -29,10 +36,21 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(params[:post])
+    if can_post_to?(params[:post][:group_id]) then
+      @post = Post.new
+      @post.title = params[:post][:title]
+      @post.content = params[:post][:title]
+      @post.group_id = params[:post][:group_id]
+      @post.user_id = current_user
+    else
+      flash[:error] = "You can not post to this group"
+      redirect_to root_path
+      return
+    end
+
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to root_path
+      redirect_to @post
     else
       @feed_items = []
       render 'static_pages/home'
@@ -41,6 +59,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @group = @post.group
   end
 
   def update

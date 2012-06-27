@@ -1,23 +1,30 @@
 <nav>
-<ul class="nav pull-right">
-  <li><%= link_to raw("<i class='icon-home icon-white'></i>"), root_path %></li>
-  <% if signed_in? %>
-    <li><%= link_to raw("<i class='icon-info-sign icon-white'></i>"), users_path %></li>
-    <li id="fat-menu" class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <i class='icon-user icon-white'></i> <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu">
-        <li><%= link_to "Profile", current_user %></li>
-        <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-        <li class="divider"></li>
-        <li>
-          <%= link_to "Sign out", signout_path, method: "delete" %>
-        </li>
-      </ul>
-    </li>
-  <% else %>
-    <li><%= link_to "Sign in", signin_path %></li>
-  <% end %>
-</ul>
+  <ul class="nav pull-right">
+    <li><%= link_to raw("<i class='icon-home icon-white'></i>"), root_path %></li>
+    <% if signed_in? %>
+      <li><%= link_to raw("<i class='icon-list icon-white'></i>"), users_path %></li>
+      <li id="fat-menu" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class='icon-user icon-white'></i> <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Profile", current_user %></li>
+          <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+          <li><%= link_to "My Groups", groups_path %></li>
+          <li><%= link_to "Join Groups", all_groups_path %></li>
+          <li class="divider"></li>
+          <li>
+            <%= link_to "Sign out", signout_path, method: "delete" %>
+          </li>
+        </ul>
+      </li>
+      <% if is_admin? %>
+      <li>
+        <%= link_to raw("<i class='icon-cog icon-white'></i>"), admin_index_path %>
+      </li>
+      <% end %>
+    <% else %>
+      <li><%= link_to "Sign in", signin_path %></li>
+    <% end %>
+  </ul>
 </nav>

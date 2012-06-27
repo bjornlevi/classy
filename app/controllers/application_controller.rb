@@ -4,4 +4,5 @@ class ApplicationController < ActionController::Base
   include GroupsHelper
 
   before_filter :user_groups
+
 end

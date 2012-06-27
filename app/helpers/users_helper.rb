@@ -6,4 +6,13 @@ module UsersHelper
 	    image_tag(gravatar_url, alt: user.email, class: "gravatar")
 	end
 
+	def is_admin?(user=current_user)
+		if signed_in? then
+			Admin.find_by_user_id(user)
+		else
+			return false
+		end
+	end
+
+
 end
