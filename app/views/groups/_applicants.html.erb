@@ -9,11 +9,14 @@
 					<%= gravatar_for(user, size=32) + ' - ' + link_to(user.email, user) %>
 				</td>
 				<td>
-					<%= button_to "Accept application", group_members_path(user_id: user.id), 
+					<%= button_to "Accept application", group_members_path(group_id: @group.id, user_id: user.id), 
 						method: :post, class: "btn btn-mini btn-primary"%>
 				</td>
 				<td>		
-					<%= button_to "Delete application", "#", class: "btn btn-mini btn-danger"%>
+					<%= link_to "Delete Application", 
+						group_application_path(@group, user_id: user.id), 
+						confirm: 'Are you sure?', method: :delete,
+						class: "btn btn-mini btn-danger" %>
 				</td>
 			</tr>
 		<% end %>

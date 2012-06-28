@@ -19,7 +19,7 @@
 						confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-primary" %>
 				<% elsif has_application?(group, current_user) %>
 					<%= link_to "Delete Application", 
-						group_application_path(group), 
+						group_application_path(group, user_id: current_user.id), 
 						confirm: 'Are you sure?', method: :delete,
 						class: "btn btn-mini btn-danger" %>
 				<% else %>

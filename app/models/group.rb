@@ -11,4 +11,5 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true, length: { within: 3..50 }, 
   	uniqueness: { case_sensitive: false }
+
 end
