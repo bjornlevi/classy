@@ -18,7 +18,8 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    #check if user is a member then make it his current group
+    @applications = GroupApplication.where(group_id: @group.id)
+    @group_members = GroupMember.where(group_id: @group.id)
   end
 
   def new

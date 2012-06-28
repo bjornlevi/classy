@@ -1,0 +1,21 @@
+<% if @applications.count > 0 %>
+	<h3>New applications (<%= @applications.count %>)</h3>
+	<table class="table table-striped">
+		<tr><th>Applicant</th><th>Accept</th><th>Decline</th></tr>
+		<% for a in @applications %>
+			<tr>
+				<td>
+					<% user = User.find(a.user_id) %>
+					<%= gravatar_for(user, size=32) + ' - ' + link_to(user.email, user) %>
+				</td>
+				<td>
+					<%= button_to "Accept application", group_members_path(user_id: user.id), 
+						method: :post, class: "btn btn-mini btn-primary"%>
+				</td>
+				<td>		
+					<%= button_to "Delete application", "#", class: "btn btn-mini btn-danger"%>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+<% end %>

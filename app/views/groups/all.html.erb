@@ -5,8 +5,7 @@
 		<th>Creator</th>
 		<th>Created</th>
 		<th>#Members</th>
-		<th></th>
-		<th></th>
+		<th>Actions</th>
 	</thead>
 	<% for group in @groups %>
 		<tr>
@@ -14,8 +13,21 @@
 			<td><%= User.find(group.user_id).email %></td>
 			<td><%= time_ago_in_words(group.created_at) %></td>
 			<td><%= group.users.count %></td>
-			<td><%= button_to "Join", group_applications_path(group: group), class: "btn btn-mini btn-primary" %></td>
-			<td><%= button_to "Leave", group_member_path(group), confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-primary" %></td>
+			<td>
+				<% if is_member?(group, current_user) %>
+					<%= link_to "Leave", group_member_path(group), 
+						confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-primary" %>
+				<% elsif has_application?(group, current_user) %>
+					<%= link_to "Delete Application", 
+						group_application_path(group), 
+						confirm: 'Are you sure?', method: :delete,
+						class: "btn btn-mini btn-danger" %>
+				<% else %>
+					<%= link_to "Apply to Group", 
+						group_applications_path(group: group), method: :post,
+						class: "btn btn-mini btn-primary" %>
+				<% end %>
+			</td>
 		</tr>
 	<% end %>
 </table>

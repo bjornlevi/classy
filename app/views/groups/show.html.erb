@@ -5,3 +5,6 @@
 <h1><%= @group.name %></h1>
 <h3>Created by: <%= User.find(@group.user_id).email %></h3>
 <p><%= @group.description %></p>
+
+<%= render 'applicants' %>
+<%= render 'group_members' %>
