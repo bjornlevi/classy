@@ -3,8 +3,6 @@
 		<a href="<%= user_path(current_user) %>">
 		  <%= gravatar_for current_user, size=40%>
 		</a>
-
-		<%= link_to raw("<i class='icon-pencil icon-white'></i>"), new_post_path, class: "btn btn-medium btn-primary"%>
 	<% else %>
 		&nbsp;
 	<% end %>

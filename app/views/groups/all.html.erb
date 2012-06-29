@@ -16,7 +16,7 @@
 			<td>
 				<% if is_member?(group, current_user) %>
 					<%= link_to "Leave", group_member_path(group), 
-						confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-primary" %>
+						confirm: 'Are you sure?', method: :delete, class: "btn btn-mini btn-danger" %>
 				<% elsif has_application?(group, current_user) %>
 					<%= link_to "Delete Application", 
 						group_application_path(group, user_id: current_user.id), 
