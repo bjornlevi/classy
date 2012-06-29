@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   has_secure_password
 
+  acts_as_tagger
+
   has_many :blurts, dependent: :destroy
 
   has_many :friendships
