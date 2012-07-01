@@ -1,7 +1,7 @@
 <section>
 	<% if signed_in? %>
-		<a href="<%= user_path(current_user) %>">
-		  <%= gravatar_for current_user, size=40%>
+		<%= link_to gravatar_for(current_user, size=40), current_user, 
+		alt: "This should be a picture of you", title: "This should be a picture of you" %>
 		</a>
 	<% else %>
 		&nbsp;

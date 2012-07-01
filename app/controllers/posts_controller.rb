@@ -65,6 +65,12 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
    
+    if @post.group_id != params[:post][:group_id].to_i
+      flash[:error] = "Invalid group"
+      redirect_to @post
+      return
+    end
+
     respond_to do |format|
       if @post.update_attributes(params[:post])
         flash[:success] = "Post updated successfully!"

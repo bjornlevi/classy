@@ -5,6 +5,7 @@
 	&nbsp;
 <% else %>
 	<% for friendship in @user.friendships %>
-		<%= link_to gravatar_for(friendship.friend, size=20), user_path(friendship.friend) %>
+		<%= link_to gravatar_for(friendship.friend, size=20), user_path(friendship.friend), 
+		alt: friendship.friend.email, title: friendship.friend.email %>
 	<% end %>
 <% end %>

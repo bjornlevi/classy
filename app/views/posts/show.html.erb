@@ -1,8 +1,8 @@
 <div class="row">
- 	<div class="span4">
+ 	<div class="span2">
  		<%= render 'shared/user_info' %>
 	</div>
-	<div class="span8">
+	<div class="span7">
 		<%= render @post %>
 		<ol class="blurts">
 			<%= render partial: 'comments/comment', collection: @comments %>
@@ -10,5 +10,8 @@
 		<aside>
 			<%= render 'shared/comment_form' %>
 		</aside>
+	</div>
+	<div class="span3">
+		tags here
 	</div>
 </div>

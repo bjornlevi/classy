@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 	
-	attr_accessible :content, :title, :user_id
+	attr_accessible :content, :title, :user_id, :group_id
 
 	acts_as_taggable
 
@@ -22,7 +22,7 @@ class Post < ActiveRecord::Base
 	end
 
 	def add_like(user)
-		likes.create!(user_id: user)
+		likes.create!(user_id: user.id)
 	end
 
 	def destroy_like(user)

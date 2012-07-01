@@ -5,6 +5,7 @@
 	&nbsp;
 <% else %>
 	<% for friendship in @user.inverse_friendships %>
-		<%= link_to raw(gravatar_for friendship.user, size=20), user_path(friendship.user) %>
+		<%= link_to raw(gravatar_for friendship.user, size=20), user_path(friendship.user), 
+		alt: friendship.user.email, title: friendship.user.email %>
 	<% end %>
 <% end %>
