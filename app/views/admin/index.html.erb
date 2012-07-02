@@ -1,6 +1,13 @@
 <h3>Admin console</h3>
+<div class="row">
+	<div class="span4">
+		<ul>
+			<li><%= link_to "New group", new_group_path, class: "btn btn-medium btn-primary" %></li>
+			<%= render 'groups/groups' %>
+		</ul>
+	</div>
+</div>
 
-<p>Create new group button</p>
 <p>Manage Groups list</p>
 <p>Manage Users</p>
 

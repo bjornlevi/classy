@@ -68,6 +68,23 @@ class GroupsController < ApplicationController
     end
   end
 
+  # PUT /groups/toggle_status/:id
+  def toggle_status
+    @group = Group.find(params[:id])
+    if @group.status == "open"
+      @group.status = "closed"
+    else
+      @group.status = "open"
+    end
+
+    if @group.save
+      flash[:success] = "Group status updated"
+    else
+      flash[:error] = "Group status change failed"
+    end  
+    redirect_to @group
+  end
+
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy

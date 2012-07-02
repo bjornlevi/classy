@@ -1,0 +1,33 @@
+<table>
+	<thead>
+		<th>Group</th>
+		<th>Creator</th>
+		<th>Created</th>
+		<th>#Members</th>
+		<th></th>
+	</thead>
+	<% for group in @groups %>
+		<tr>
+			<td><%= link_to group.name, group_path(group) %></td>
+			<td><%= User.find(group.user_id).email %></td>
+			<td><%= time_ago_in_words(group.created_at) %></td>
+			<td><%= group.users.count %></td>
+			<td>
+				<div class="btn-group">
+  					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+  						Action
+    					<span class="caret"></span>
+  					</a>
+  					<ul class="dropdown-menu">
+    					<li><%= link_to toggle_status(group) + " group", toggle_status_groups_path(group),
+    							method: :put %></li>
+    					<li><%= link_to "Edit group", edit_group_path(group), 
+    						method: :get %></li>
+    					<li><%= link_to "Destroy group", group, confirm: 'Are you sure?', 
+    						 method: :delete %></li>
+  					</ul>
+				</div>
+			</td>
+		</tr>
+	<% end %>
+</table>

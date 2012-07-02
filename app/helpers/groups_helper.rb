@@ -30,4 +30,11 @@ module GroupsHelper
 
 	end
 
+	def toggle_status(group)
+		if group.status == "open"
+			"Close"
+		else
+			"Open"
+		end
+	end
 end

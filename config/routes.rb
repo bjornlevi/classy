@@ -27,6 +27,7 @@ Coblogger::Application.routes.draw do
     resources :posts, only: [:new]
     collection do
       get 'all', as: 'all'
+      put 'toggle_status/:id' => 'groups#toggle_status', as: 'toggle_status'
     end
   end
 

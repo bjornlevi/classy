@@ -1,6 +1,9 @@
-<%= link_to raw("<i class='icon-edit'></i>"), edit_group_path, class: "pull-left" %>
-<%= link_to raw("<i class='icon-remove'></i>"), edit_group_path, class: "pull-left" %>
-<%= link_to "Post to group", new_post_path(@group), class: "btn btn-large btn-primary pull-right" %>
+<%= link_to_unless(@group.is_closed?, raw("<i class='icon-edit'></i>"), edit_group_path,
+	class: "pull-left"){} %>
+<%= link_to_unless(@group.is_closed?, raw("<i class='icon-remove'></i>"), edit_group_path, 
+	class: "pull-left"){} %>
+<%= link_to_unless(@group.is_closed?, "Post to group", new_group_post_path(@group), 
+	class: "btn btn-large btn-primary pull-right"){} %>
 
 <h1><%= @group.name %></h1>
 <h3>Created by: <%= User.find(@group.user_id).email %></h3>

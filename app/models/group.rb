@@ -12,4 +12,8 @@ class Group < ActiveRecord::Base
   validates :name, presence: true, length: { within: 3..50 }, 
   	uniqueness: { case_sensitive: false }
 
+	def is_closed?
+		self.status == "closed"
+	end
+
 end
