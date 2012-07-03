@@ -12,6 +12,8 @@
 		</aside>
 	</div>
 	<div class="span3">
-		tags here
+		<%= text_field_tag :tags, params[:tags], 
+			:data => { :provide => 'typeahead', :source => @tags} %>
+		<%= @tags %>
 	</div>
 </div>

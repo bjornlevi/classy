@@ -4,10 +4,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-
+    @tags = Post.tag_counts_on(:tags).map(&:name)
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => @posts }
+      format.json  { render :json => {posts: @posts, tags: @tags} }
     end
   end
 
@@ -15,6 +15,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments
     @user = User.find(@post.user)
+    @tags = Post.tag_counts_on(:tags).map(&:name)
   rescue
     render 'error'
   end

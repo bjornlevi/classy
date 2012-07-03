@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery.flot
+
+$(document).ready(function() {
+    $('.typeahead').typeahead()
+});
