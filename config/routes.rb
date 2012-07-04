@@ -36,6 +36,8 @@ Coblogger::Application.routes.draw do
 
   resources :admin, only: [:index]
 
+  resources :tags, only: [:create, :show]
+
   root :to => "dashboard#home"
   
   match '/help',    to: 'dashboard#help'

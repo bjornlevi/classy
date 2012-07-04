@@ -16,5 +16,14 @@
 //= require jquery.flot
 
 $(document).ready(function() {
-    $('.typeahead').typeahead()
+    $('.typeahead').typeahead();
+    $('#create_tag').keypress( function( e ) {
+  		if( e.keyCode == 13 ) {
+  			$.ajax({
+  				type: 'POST', 
+  				url: '/tags', 
+  				data: {tag: $('#create_tag').val()}
+  			});
+  		}
+	});
 });

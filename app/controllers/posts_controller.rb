@@ -15,7 +15,8 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments
     @user = User.find(@post.user)
-    @tags = Post.tag_counts_on(:tags).map(&:name)
+    @tags = Post.tag_counts.order(:name)
+    @post_tags = @post.tag_counts.order(:name)
   rescue
     render 'error'
   end
