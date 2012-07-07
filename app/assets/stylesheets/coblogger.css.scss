@@ -232,17 +232,10 @@ aside {
 
 .dashboard_box
 {
-  height: 200px;
-  overflow: hidden; 
   h3
   {
-    background-color: grey;
     padding: 2px;
     margin: 2px;
     text-align: center;
   }
-}
-.dashboard_box:hover
-{
-  overflow-y: scroll; 
 }

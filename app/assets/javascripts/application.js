@@ -16,14 +16,38 @@
 //= require jquery.flot
 
 $(document).ready(function() {
-    $('.typeahead').typeahead();
-    $('#create_tag').keypress( function( e ) {
-  		if( e.keyCode == 13 ) {
-  			$.ajax({
-  				type: 'POST', 
-  				url: '/tags', 
-  				data: {tag: $('#create_tag').val()}
-  			});
-  		}
-	});
+  $('.typeahead').typeahead();
+  $('#create_tag').keypress( function( e ) {
+		if( e.keyCode == 13 ) {
+			$.ajax({
+				type: 'POST', 
+				url: '/tags', 
+				data: {tag: $('#create_tag').val()}
+			});
+		}
+  });
+
+  // click events for nav-tabs on dashboard //
+  $('a', '.nav-tabs').click( function( e ){
+    $('li', '.nav-tabs').removeClass('active');
+    $(this).parent().addClass('active');
+    toggle_dashboard(get_active_dashboard_id());
+  });
+
+  // show/hide dashboard content //
+  toggle_dashboard(get_active_dashboard_id());
+
 });
+
+function get_active_dashboard_id()
+{
+  return "#dashboard_" + $('.active', '.nav-tabs').attr("id");
+}
+
+function toggle_dashboard(dashboard_id)
+{
+  $(".dashboard_box").each( function( i ){
+    $(this).hide()
+  });
+  $(dashboard_id).show();
+}
