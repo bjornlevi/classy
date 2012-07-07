@@ -1,4 +1,10 @@
 Coblogger::Application.routes.draw do
+  get "user_profile/new"
+
+  get "user_profile/update"
+
+  get "user_profile/create"
+
   get "group_applications/create"
 
   get "group_applications/destroy"
@@ -37,6 +43,8 @@ Coblogger::Application.routes.draw do
   resources :admin, only: [:index]
 
   resources :tags, only: [:create, :show]
+
+  resources :user_profiles, only: [:new, :create, :update, :edit]
 
   root :to => "dashboard#home"
   

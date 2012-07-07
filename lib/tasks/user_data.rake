@@ -21,8 +21,7 @@ namespace :db do
       u = rand(1..User.count)
       t = Faker::Lorem.paragraph(1)
       c = Faker::Lorem.paragraph(rand(10..100))
-      g = Group.first
-      p = Post.create(user_id: u, group_id: g, title: t, content: c)
+      p = Post.create(user_id: u, group_id: Group.first, title: t, content: c)
       p.created_at = (rand*14).days.ago #random created_at
       p.save
     end

@@ -1,0 +1,23 @@
+<script type="text/javascript">
+ 	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
+
+<h1>Update profile</h1>
+
+<div class="row">
+  <div class="span8 offset2">
+    <%= form_for(@profile) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, :cols => "30", :rows => "10" %>
+
+      <%= f.submit "Update profile", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

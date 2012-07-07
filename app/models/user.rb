@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   has_one :admin
 
+  has_one :profile, class_name: "UserProfile"
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
@@ -51,6 +53,14 @@ class User < ActiveRecord::Base
 
   def likes?(post)
     self.likes.find_by_post_id(post)
+  end
+
+  def name
+    if self.profile
+      self.profile.first_name
+    else
+      self.email.split('@')[0]
+    end
   end
 
 private
