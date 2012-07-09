@@ -12,6 +12,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @blurts = current_user.blurts.build if signed_in?
     @feed_items = (@user.posts + @user.blurts).paginate(page: params[:page])
+    #@owned_tags = @user.owned_taggings.order(:name)
+    #@made_tags = @user.owned_tags.order(:name)
+    @tags = Post.tag_counts.order(:name)
   rescue 
     render 'error'
   end

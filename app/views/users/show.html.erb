@@ -1,8 +1,8 @@
 <div class="row">
- 	<div class="span4">
+ 	<div class="span3">
  		<%= render 'shared/user_info' %>
 	</div>
-	<div class="span8">
+	<div class="span6">
 		<aside>
 			<%= render 'shared/blurt_form' if signed_in?%>		
 			<%= render 'follow_form' if signed_in? %>
@@ -13,6 +13,12 @@
 				<%= render 'shared/feed' %>
 			</ol>
 			<%= will_paginate @feed_items %>
+		<% end %>
+	</div>
+	<div class="span3">
+		<h3>All tags</h3>
+		<% tag_cloud @tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
+			<%= link_to a_tag.name, tag_path(a_tag.id), :class => css_class %> 
 		<% end %>
 	</div>
 </div>
