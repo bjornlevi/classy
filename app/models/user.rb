@@ -35,8 +35,13 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
-  def feed
+  def friend_feed
     (Blurt.from_friends(self) + Post.from_friends(self)).sort_by(&:updated_at).reverse
+  end
+
+  def recent_feed
+    #TODO: limit by last visit date of user
+    (Blurt.limit(25) + Post.limit(25)).sort_by(&:updated_at).reverse
   end
 
   def following?(other_user)

@@ -1,35 +1,51 @@
 <% if signed_in? %>
-	<ul class="nav nav-tabs">
-		<li class="active" id="recents"><a href="#">Recent<span> (51)</span></a></li>
-		<li id="friends"><a href="#">Friends<span> (4)</span></a></li>
-		<li id="featured"><a href="#">Featured<span> (2)</span></a></li>
-		<li id="tags"><a href="#">Tasks<span> (0)</span></a></li>
-		<li id="notifications"><a href="#">Notifications<span> (11)</span></a></li>
-	</ul>
-	<div id="dashboard_recents" class="dashboard_box">
-		<h3>Recent activity</h3>
-		<div class="dashboard_content"><%= render 'shared/feed' %></div>
+	<div class="row">
+		<div class="span9">
+			<ul class="nav nav-tabs">
+				<li class="active" id="recents"><a href="#">Recent<span> (51)</span></a></li>
+				<li id="friends"><a href="#">Friends<span> (4)</span></a></li>
+				<li id="featured"><a href="#">Featured<span> (2)</span></a></li>
+				<li id="tags"><a href="#">Tasks<span> (0)</span></a></li>
+				<li id="notifications"><a href="#">Notifications<span> (11)</span></a></li>
+			</ul>
+			<div id="dashboard_recents" class="dashboard_box">
+				<h3>Recent activity</h3>
+				<div class="dashboard_content"><%= render 'shared/feed', 
+					:feed_items => @recents %></div>
+			</div>
+			<div id="dashboard_friends" class="dashboard_box">
+					<h3>Friend activity</h3>
+				<div class="dashboard_content"><%= render 'shared/feed', 
+					:feed_items => @friends %></div>
+			</div>
+			<div id="dashboard_featured" class="dashboard_box">
+				<h3>Featured activity</h3>
+				<div class="dashboard_content"><%= render 'shared/feed', 
+					:feed_items => @friends %></div>
+			</div>				
+			<div id="dashboard_tags" class="dashboard_box">
+				<h3>Tags cloud</h3>
+				<div class="dashboard_content"><%= render 'shared/feed', 
+					:feed_items => @friends %></div>
+			</div>
+			<div id="dashboard_tasks" class="dashboard_box">
+				<h3>My tasks</h3>
+				<div class="dashboard_content"><%= render 'shared/feed', 
+					:feed_items => @friends %></div>
+			</div>
+			<div id="dashboard_notifications" class="dashboard_box">
+				<h3>Notifications</h3>
+				<div class="dashboard_content"><%= render 'shared/feed', 
+					:feed_items => @friends %></div>
+			</div>		
+		</div>
+		<div class="span3">
+			<h3>All tags</h3>
+			<% tag_cloud @tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
+				<%= link_to a_tag.name, tag_path(a_tag.id), :class => css_class %> 
+			<% end %>
+		</div>
 	</div>
-	<div id="dashboard_friends" class="dashboard_box">
-			<h3>Friend activity</h3>
-		<div class="dashboard_content"><%= render 'shared/feed' %></div>
-	</div>
-	<div id="dashboard_featured" class="dashboard_box">
-		<h3>Featured activity</h3>
-		<div class="dashboard_content"><%= render 'shared/feed' %></div>
-	</div>				
-	<div id="dashboard_tags" class="dashboard_box">
-		<h3>Tags cloud</h3>
-		<div class="dashboard_content"><%= render 'shared/feed' %></div>
-	</div>
-	<div id="dashboard_tasks" class="dashboard_box">
-		<h3>My tasks</h3>
-		<div class="dashboard_content"><%= render 'shared/feed' %></div>
-	</div>
-	<div id="dashboard_notifications" class="dashboard_box">
-		<h3>Notifications</h3>
-		<div class="dashboard_content"><%= render 'shared/feed' %></div>
-	</div>				
 <% else %>
 	<div class="center hero-unit">
 	  <h1>Welcome to the CoBlogger</h1>

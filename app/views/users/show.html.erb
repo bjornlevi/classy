@@ -10,7 +10,7 @@
 		<% if @user.blurts.any? %>
 			<h3>Posts (<%= @user.blurts.count + @user.posts.count %>)</h3>
 			<ol class="posts">
-				<%= render 'shared/feed' %>
+				<%= render 'shared/feed', :feed_items => @user_feed %>
 			</ol>
 			<%= will_paginate @feed_items %>
 		<% end %>
@@ -19,6 +19,14 @@
 		<h3>All tags</h3>
 		<% tag_cloud @tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
 			<%= link_to a_tag.name, tag_path(a_tag.id), :class => css_class %> 
+		<% end %>
+		<h3>Recieved tags</h3>
+		<% tag_cloud @created_tags, %w(css1 css2 css3 css4) do |r_tag, css_class| %> 
+			<%= link_to r_tag.name, tag_path(r_tag.id), :class => css_class %> 
+		<% end %>
+		<h3>Given tags</h3>
+		<% tag_cloud @given_tags, %w(css1 css2 css3 css4) do |g_tag, css_class| %> 
+			<%= link_to g_tag.name, tag_path(g_tag.id), :class => css_class %> 
 		<% end %>
 	</div>
 </div>
