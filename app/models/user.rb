@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     (Blurt.limit(25) + Post.limit(25)).sort_by(&:updated_at).reverse
   end
 
+  def featured_feed
+    #TODO: add "gold stars"
+  end
+
   def following?(other_user)
     friendships.find_by_friend_id(other_user.id)
   end

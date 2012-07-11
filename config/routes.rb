@@ -50,6 +50,9 @@ Classy::Application.routes.draw do
 
   resources :password_resets
 
+  match '/feeds/friends' => 'feeds#friend_feed', as: 'friend_feed'
+  match '/feeds/recents' => 'feeds#recent_feed', as: 'recent_feed'
+
   root :to => "dashboard#home"
   
   match '/help',    to: 'dashboard#help'
