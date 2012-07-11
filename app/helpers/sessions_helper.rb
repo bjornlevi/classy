@@ -14,7 +14,7 @@ module SessionsHelper
  	end
 
  	def current_user
-        @current_user ||= user_from_remember_token
+        @current_user ||= user_from_auth_token
     end
 
     def current_user?(user)
@@ -43,9 +43,9 @@ module SessionsHelper
 
 private
 
-    def user_from_remember_token
-		remember_token = cookies[:auth_token]
-		User.find_by_remember_token(remember_token) unless remember_token.nil?
+    def user_from_auth_token
+		auth_token = cookies[:auth_token]
+		User.find_by_auth_token(auth_token) unless auth_token.nil?
     end
 
     def clear_return_to

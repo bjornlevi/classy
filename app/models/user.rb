@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   has_one :profile, class_name: "UserProfile"
 
   before_save { |user| user.email = email.downcase }
-  before_save :create_remember_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { within: 6..50 }, 
@@ -83,10 +82,4 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver  
   end  
 
-private
-
-  def create_remember_token
-    self.remember_token = SecureRandom.urlsafe_base64
-  end
-  
 end
