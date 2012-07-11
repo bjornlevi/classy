@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @applications = GroupApplication.where(group_id: @group.id)
-    @group_members = GroupMember.where(group_id: @group.id)
+    @group_members = @group.users.order('users.email')
   end
 
   def new

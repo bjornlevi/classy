@@ -22,7 +22,7 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'POST', 
 				url: '/tags', 
-				data: {tag: $('#create_tag').val()}
+				data: {tag: $('#create_tag').val(), post_id: $('#like_post_id').attr('value')}
 			});
 		}
   });

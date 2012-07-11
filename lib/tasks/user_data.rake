@@ -9,10 +9,10 @@ namespace :db do
     100.times do |n| #create users
       email  = Faker::Internet.email
       password  = "password"
-      u = User.create(email: email,
+      u = User.create!(email: email,
                    password: password,
                    password_confirmation: password)
-      GroupMember.create(user_id: u, group_id: Group.first, role: "student")
+      GroupMember.create!(user_id: u.id, group_id: Group.first.id, role: "student")
     end
   end
   task populate_posts: :environment do

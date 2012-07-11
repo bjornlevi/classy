@@ -1,8 +1,10 @@
 require 'will_paginate/array'
 
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :signed_in_user, 
+    only: [:index, :edit, :update, :change_password, :update_password, :destroy, :following, :followers]
+  before_filter :correct_user,
+    only: [:edit, :update, :change_password, :update_password]
 
   def new
   	@user = User.new
@@ -28,7 +30,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the CoBlogger!"
+      #automatically add the new user to the default Public group.
+      GroupMember.create(user_id: @user.id, group_id: Group.first, role: "student")
+      flash[:success] = "Welcome to CLASSY!"
       redirect_to @user
     else
       render new_user_path

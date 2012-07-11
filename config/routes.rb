@@ -1,4 +1,6 @@
-Coblogger::Application.routes.draw do
+Classy::Application.routes.draw do
+  get "password_resets/new"
+
   get "user_profile/new"
 
   get "user_profile/update"
@@ -42,9 +44,11 @@ Coblogger::Application.routes.draw do
 
   resources :admin, only: [:index]
 
-  resources :tags, only: [:create, :show]
+  resources :tags, only: [:create, :index, :show]
 
   resources :user_profiles, only: [:new, :create, :update, :edit]
+
+  resources :password_resets
 
   root :to => "dashboard#home"
   

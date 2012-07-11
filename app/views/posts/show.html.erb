@@ -14,12 +14,12 @@
 
 	<div>
  		<%= text_field_tag :tags, params[:tags], placeholder: "Add tag",
-			:data => { :provide => 'typeahead', :source => @tags},
+			:data => { :provide => 'typeahead', :source => @typeahead_tags},
 			class: "span2 tag_form", id: "create_tag" %>
 	</div>
 	<div id="tag_response"></div>
 
-	<h3>Tags</h3>
+	<h3 id="post_tags">Tags</h3>
 	<% tag_cloud @post_tags, %w(css1 css2 css3 css4) do |tag, css_class| %> 
 		<%= link_to tag.name, tag_path(tag.id), :class => css_class %> 
 	<% end %>

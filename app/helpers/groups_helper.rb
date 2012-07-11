@@ -11,7 +11,7 @@ module GroupsHelper
 	end
 
 	def can_post_to?(group)
-		Group.exists?(group)
+		Group.exists?(group) and member?(current_user, group)
 	end
 
 	def user_applications(user)
@@ -26,8 +26,8 @@ module GroupsHelper
 		Group.find(group).applications 
 	end
 
-	def member?(user)
-
+	def member?(user, group)
+		GroupMember.find_by_user_id_and_group_id(user,group)
 	end
 
 	def toggle_status(group)

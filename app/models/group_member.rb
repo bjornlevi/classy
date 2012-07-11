@@ -4,5 +4,6 @@ class GroupMember < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
 
-  validates_uniqueness_of :group_id, :scope => :user_id
+  validates :role, :presence => :true
+  validates :group_id, :uniqueness => {:scope => :user_id, :message => "Already a member of group"}
 end

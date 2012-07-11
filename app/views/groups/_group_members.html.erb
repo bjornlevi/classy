@@ -2,14 +2,14 @@
 	<h3>Group Members (<%= @group_members.count %>)</h3>
 	<table class="table table-striped">
 		<tr><th>User</th><th>Joined</th><th>Role</th><th>Actions</th></tr>
-		<% for membership in @group_members %>
+		<% for user in @group_members %>
 			<tr>
 				<td>
-					<% user = User.find(membership.user_id) %>
-					<%= gravatar_for(user, size=32) + ' - ' + link_to(user.email, user) %>
+					<%= gravatar_for(user, size=32) + ' - ' + link_to(user.name, user) %>
+					(<%= user.email %>)
 				</td>
-				<td><%= time_ago_in_words(membership.created_at) %> ago</td>
-				<td><%= membership.role %></td> <!-- make this into a button dropdown to change role -->
+				<td><%= time_ago_in_words(GroupMember.find_by_user_id_and_group_id(user, @group).created_at) %> ago</td>
+				<td><%= GroupMember.find_by_user_id_and_group_id(user, @group).role %></td> <!-- make this into a button dropdown to change role -->
 				<td>
 					<%= button_to "Kick", group_member_path(@group), method: :delete,
 						class: "btn btn-mini btn-danger" %>

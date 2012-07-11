@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Coblogger::Application.load_tasks
+Classy::Application.load_tasks
