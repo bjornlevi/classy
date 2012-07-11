@@ -31,8 +31,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { within: 6..50 }, 
   	format: { with: VALID_EMAIL_REGEX },
   	uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: { minimum: 6 }, on: :create
+  validates :password_confirmation, presence: true, on: :create
 
   before_create { generate_token(:auth_token) }
 

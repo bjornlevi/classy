@@ -7,6 +7,10 @@ class DashboardController < ApplicationController
   	@recents = current_user.recent_feed.paginate(page: params[:page]) if signed_in?
   	@friends = current_user.friend_feed.paginate(page: params[:page]) if signed_in?
   	@tags = Post.tag_counts.order(:name)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def help

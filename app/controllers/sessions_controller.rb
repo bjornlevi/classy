@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 			end
 			redirect_to root_url, :notice => "Logged in!"
 		else
-			flash.now.alert = params.inspect
+			flash.now.alert = "Log in information incorrect"
 			render "new"
 		end
 	end

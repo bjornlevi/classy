@@ -14,30 +14,43 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery.flot
-
 $(document).ready(function() {
-  $('.typeahead').typeahead();
-  $('#create_tag').keypress( function( e ) {
-		if( e.keyCode == 13 ) {
-			$.ajax({
-				type: 'POST', 
-				url: '/tags', 
-				data: {tag: $('#create_tag').val(), post_id: $('#like_post_id').attr('value')}
-			});
-		}
-  });
+  //enable typeahead for tagging
+  tag_typeahead();
 
   // click events for nav-tabs on dashboard //
+  add_nav_tab_events()
+
+  // show/hide dashboard content //
+  toggle_dashboard(get_active_dashboard_id());
+
+  //ajax for will_paginate
+  ajaxPagination();
+
+});
+
+function tag_typeahead()
+{
+  $('.typeahead').typeahead();
+  $('#create_tag').keypress( function( e ) {
+    if( e.keyCode == 13 ) {
+      $.ajax({
+        type: 'POST', 
+        url: '/tags', 
+        data: {tag: $('#create_tag').val(), post_id: $('#like_post_id').attr('value')}
+      });
+    }
+  });
+}
+
+function add_nav_tab_events()
+{
   $('a', '.nav-tabs').click( function( e ){
     $('li', '.nav-tabs').removeClass('active');
     $(this).parent().addClass('active');
     toggle_dashboard(get_active_dashboard_id());
   });
-
-  // show/hide dashboard content //
-  toggle_dashboard(get_active_dashboard_id());
-
-});
+}
 
 function get_active_dashboard_id()
 {
@@ -49,5 +62,18 @@ function toggle_dashboard(dashboard_id)
   $(".dashboard_box").each( function( i ){
     $(this).hide()
   });
-  $(dashboard_id).show();
+  $(dashboard_id).parent().show();
+}
+
+function ajaxPagination()
+{
+  $(".pagination a").click(function() {
+      console.log($(this).parents(".dashboard_content"));
+      $.ajax({
+        type: "GET",
+        url: $(this).attr("href"),
+        dataType: "script"
+      });
+      return false;
+  });
 }

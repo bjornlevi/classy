@@ -17,8 +17,8 @@ class Post < ActiveRecord::Base
 	default_scope order: 'posts.updated_at DESC'
 
 	def self.from_friends(user)
-		friend_ids = user.friend_ids.join(', ')
-		where("user_id IN (?) OR user_id = ?", friend_ids, user)
+		friend_ids = user.friend_ids
+		find_all_by_user_id(friend_ids)
 	end
 
 	def add_like(user)

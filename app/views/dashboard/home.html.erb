@@ -8,35 +8,41 @@
 				<li id="tags"><a href="#">Tasks<span> (0)</span></a></li>
 				<li id="notifications"><a href="#">Notifications<span> (11)</span></a></li>
 			</ul>
-			<div id="dashboard_recents" class="dashboard_box">
+			<div class="dashboard_box">
 				<h3>Recent activity</h3>
-				<div class="dashboard_content"><%= render 'shared/feed', 
-					:feed_items => @recents %></div>
+				<div class="dashboard_content" id="dashboard_recents">
+					<%= render 'shared/feed', :feed_items => @recents %>
+				</div>
 			</div>
-			<div id="dashboard_friends" class="dashboard_box">
-					<h3>Friend activity</h3>
-				<div class="dashboard_content"><%= render 'shared/feed', 
-					:feed_items => @friends %></div>
+			<div class="dashboard_box">
+				<h3>Friend activity</h3>
+				<div class="dashboard_content" id="dashboard_friends">
+					<%= render 'shared/feed', :feed_items => @friends %>
+				</div>
 			</div>
-			<div id="dashboard_featured" class="dashboard_box">
+			<div class="dashboard_box">
 				<h3>Featured activity</h3>
-				<div class="dashboard_content"><%= render 'shared/feed', 
-					:feed_items => @friends %></div>
+				<div class="dashboard_content" id="dashboard_featured">
+					<%= render 'shared/feed', :feed_items => @recents %>
+				</div>
 			</div>				
-			<div id="dashboard_tags" class="dashboard_box">
+			<div class="dashboard_box">
 				<h3>Tags cloud</h3>
-				<div class="dashboard_content"><%= render 'shared/feed', 
-					:feed_items => @friends %></div>
+				<div class="dashboard_content" id="dashboard_tags">
+					<%= render 'shared/feed', :feed_items => @recents %>
+				</div>
 			</div>
-			<div id="dashboard_tasks" class="dashboard_box">
+			<div class="dashboard_box">
 				<h3>My tasks</h3>
-				<div class="dashboard_content"><%= render 'shared/feed', 
-					:feed_items => @friends %></div>
+				<div class="dashboard_content" id="dashboard_tasks">
+					<%= render 'shared/feed', :feed_items => @recents %>
+				</div>
 			</div>
-			<div id="dashboard_notifications" class="dashboard_box">
+			<div class="dashboard_box">
 				<h3>Notifications</h3>
-				<div class="dashboard_content"><%= render 'shared/feed', 
-					:feed_items => @friends %></div>
+				<div class="dashboard_content" id="dashboard_notifications">
+					<%= render 'shared/feed', :feed_items => @recents %>
+				</div>
 			</div>		
 		</div>
 		<div class="span3">
