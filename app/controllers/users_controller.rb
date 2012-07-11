@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   
   def index
     @user ||= current_user
-    @users = User.paginate(:page => params[:page])
+    @users = User.order(:email).paginate(:page => params[:page])
   end
 
   def create
