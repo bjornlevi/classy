@@ -22,7 +22,7 @@ $(document).ready(function() {
   add_nav_tab_events()
 
   // show/hide dashboard content //
-  toggle_dashboard(get_active_dashboard_id());
+  toggle_dashboard("#dashboard_" + get_active_dashboard_id());
 
   //ajax for will_paginate
   ajaxPagination();
@@ -48,13 +48,13 @@ function add_nav_tab_events()
   $('a', '.nav-tabs').click( function( e ){
     $('li', '.nav-tabs').removeClass('active');
     $(this).parent().addClass('active');
-    toggle_dashboard(get_active_dashboard_id());
+    toggle_dashboard("#dashboard_" + get_active_dashboard_id());
   });
 }
 
 function get_active_dashboard_id()
 {
-  return "#dashboard_" + $('.active', '.nav-tabs').attr("id");
+  return $('.active', '.nav-tabs').attr("id");
 }
 
 function toggle_dashboard(dashboard_id)
@@ -68,12 +68,14 @@ function toggle_dashboard(dashboard_id)
 function ajaxPagination()
 {
   $(".pagination a").click(function() {
-      console.log($(this).parents(".dashboard_content"));
-      $.ajax({
-        type: "GET",
-        url: $(this).attr("href"),
-        dataType: "script"
-      });
-      return false;
+    var target = $(this).parents(".dashboard_content");
+    $.ajax({
+      type: "GET",
+      url: '/feeds/'+get_active_dashboard_id()+$(this).attr("href"),
+      success: function(data, textStatus, jqXHR){
+        target.html(data);
+      }
+    });
+    return false;
   });
 }
