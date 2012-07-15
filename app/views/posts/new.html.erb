@@ -1,5 +1,22 @@
 <h1>New post</h1>
- 
-<%= render 'form' %>
+<div class="row">
+	<div class="span8">
+		<%= render 'form' %>
+	</div>
+	<div class="span4">
+		<div>Add citation</div>
+		<div>
+			Citation list
+			<ul>
+				<li class="internal">Citation1</li>
+				<li class="external">Citation2</li>
+				<li class="internal">Citation3</li>
+				<li class="external">Citation4</li>
+				<li class="internal">Citation5</li>
+			</ul>
+			(difference between internal and external citations, internal open in the same tab but external in a new tab)
+		</div>
+	</div>
+</div>
  
 <%= link_to 'Back', posts_path %>

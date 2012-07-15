@@ -2,7 +2,7 @@
  	bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
 </script>
 
-<h3>Updating post in <%= @group.name %></h3>
+<h3>Posting to <%= @group.name %></h3>
 
 <%= form_for(@post) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
