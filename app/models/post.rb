@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_many :comments
 	has_many :likes
+	has_many :features
 	belongs_to :group
 
 	validates :user_id, presence: true
@@ -29,4 +30,11 @@ class Post < ActiveRecord::Base
 		likes.find_by_user_id(user.id).destroy
 	end
 
+	def add_feature(user)
+		features.create!(user_id: user.id)
+	end
+
+	def destroy_feature(user)
+		features.find_by_user_id(user.id).destroy
+	end
 end

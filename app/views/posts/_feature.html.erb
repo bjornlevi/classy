@@ -1,0 +1,6 @@
+<%= form_for(@post.features.build, remote: true) do |f| %>
+  <%= f.hidden_field :post_id %>
+  <%= link_to raw("Feature this post <i class='icon-volume-up'></i>"), '#', 
+  	:onclick => "$('#feature_form form').submit()",
+  	alt: "Promote", title: "Promote" %>
+<% end %>

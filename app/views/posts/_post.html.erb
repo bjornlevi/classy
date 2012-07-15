@@ -17,5 +17,6 @@
 	</span>
 	</span class="post_feedback_actions">
 		<%= render 'like_form' if signed_in? %>
+		<%= render 'feature_form' if signed_in? and is_teacher? %>
 	</span>
 </div>

@@ -29,6 +29,7 @@ Classy::Application.routes.draw do
   end
   resources :friendships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
+  resources :features, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
 
   resources :groups do
