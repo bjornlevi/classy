@@ -22,7 +22,7 @@
       <%= safe_html_output summarize(feed_item.content, 300)%>
     </span>
     <span class="timestamp">
-      Posted <%= time_ago_in_words(feed_item.updated_at) %> ago.
+      Activity <%= time_ago_in_words(feed_item.updated_at) %> ago.
     </span>
 
     <% if current_user.try(:id) && current_user.id == feed_item.user.id %>

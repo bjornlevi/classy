@@ -6,7 +6,7 @@ namespace :db do
   desc "Fill database with sample data"
   task populate_users: :environment do
     puts "creating users"
-    100.times do |n| #create users
+    20.times do |n| #create users
       email  = Faker::Internet.email
       password  = "password"
       u = User.create!(email: email,
@@ -15,6 +15,17 @@ namespace :db do
       GroupMember.create!(user_id: u.id, group_id: Group.first.id, role: "student")
     end
   end
+  task populate_teachers: :environment do
+    puts "creating teachers"
+    2.times do |n| #create users
+      email  = Faker::Internet.email
+      password  = "password"
+      u = User.create!(email: email,
+                   password: password,
+                   password_confirmation: password)
+      GroupMember.create!(user_id: u.id, group_id: Group.first.id, role: "teacher")
+    end
+  end  
   task populate_posts: :environment do
     puts "creating posts"
     100.times do |n| #random user creates posts in the first group (Public)
@@ -22,19 +33,20 @@ namespace :db do
       t = Faker::Lorem.paragraph(1)
       c = Faker::Lorem.paragraph(rand(10..100))
       p = Post.create(user_id: u, group_id: Group.first, title: t, content: c)
-      p.created_at = (rand*14).days.ago #random created_at
-      p.save
+      p.created_at = (rand*14+15).days.ago #random created_at
+      p.updated_at = (rand*14).days.ago #random updated at
+      p.save!
     end
   end
   task populate_comments: :environment do
     puts "creating comments"
     100.times do |n| #random user comments on a random post
       u = rand(1..User.count)
-      p = Post.find(rand(1..Post.count))
+      p_id = rand(1..Post.count)
       c = Faker::Lorem.paragraph(rand(5..50))
-      i = Comment.create(user_id: u, post_id: p, content: c)
-      i.created_at = Time.at(rand_in_range(p.created_at.to_f, Time.now.to_f))
-      i.save
+      user_comment = Comment.create(user_id: u, post_id: p_id, content: c)
+      user_comment.created_at = Time.at(rand_in_range(Post.find(p_id).created_at.to_f, Time.now.to_f))
+      user_comment.save!
     end
   end
   task populate_tags: :environment do
@@ -57,7 +69,8 @@ namespace :db do
       u = User.find(rand(1..User.count))
       p = Post.find(rand(1..Post.count))
       t = tag_words.sample()
-      u.tag(p, with: t, on: :tags) #don't care about when
+      new_tags = p.tags_from(u).append(t).join(',')
+      u.tag(p, with: new_tags, on: :tags) #don't care about when
     end
   end
   task populate_blurts: :environment do
@@ -66,12 +79,13 @@ namespace :db do
       u = User.find(rand(1..User.count))
       c = Faker::Lorem.sentence()
       b = u.blurts.build(content: c[0..139])
-      b.created_at = (rand*14).days.ago #random created_at
-      b.save
+      b.created_at = (rand*28).days.ago #random created_at
+      b.updated_at = b.created_at
+      b.save!
     end
   end
   task populate_friendships: :environment do
-    100.times do |n|
+    10.times do |n|
       u = User.find(rand(1..User.count)) 
       f = User.find(rand(1..User.count))
       if u.id != f.id
