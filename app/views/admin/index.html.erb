@@ -1,10 +1,18 @@
 <h3>Admin console</h3>
 <div class="row">
 	<div class="span4">
+		<%= render 'groups/new_group_button' %>
+		<%= render 'groups/groups' %>
 		<ul>
-			<li><%= link_to "New group", new_group_path, class: "btn btn-medium btn-primary" %></li>
-			<%= render 'groups/groups' %>
+			<% for activity in @activities %>
+				<li><%= activity.path %> <%= activity.params %></li>
+			<% end %>
 		</ul>
+		<ul>
+			<% for read in @reads %>
+				<li><%= read.post_id %> </li>
+			<% end %>
+		</ul>		
 	</div>
 </div>
 

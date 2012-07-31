@@ -3,5 +3,7 @@ class AdminController < ApplicationController
 	
 	def index
 		@groups = Group.all
+		@activities = current_user.activities
+		@reads = current_user.reads
 	end
 end

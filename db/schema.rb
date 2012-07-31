@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718181929) do
+ActiveRecord::Schema.define(:version => 20120731175004) do
+
+  create_table "activities", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "path"
+    t.text     "params"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "activities", ["user_id"], :name => "index_activities_on_user_id"
 
   create_table "admins", :force => true do |t|
     t.integer  "user_id"
@@ -95,6 +105,16 @@ ActiveRecord::Schema.define(:version => 20120718181929) do
     t.datetime "updated_at", :null => false
     t.integer  "group_id"
   end
+
+  create_table "reads", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "reads", ["post_id"], :name => "index_reads_on_post_id"
+  add_index "reads", ["user_id"], :name => "index_reads_on_user_id"
 
   create_table "references", :force => true do |t|
     t.integer  "user_id"

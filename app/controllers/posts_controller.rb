@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy]
   before_filter :correct_user,   only: :destroy
 
+  after_filter :read_logging, only: :show
+
   def index
     @posts = Post.all
     @tags = Post.tag_counts_on(:tags).map(&:name)
@@ -100,5 +102,11 @@ class PostsController < ApplicationController
     def correct_user
       @post = current_user.posts.find_by_id(params[:id])
       redirect_to root_path if @post.nil?
+    end
+
+    def read_logging
+      if @post.user != current_user
+        Read.create!(user_id: current_user.id, post_id: params[:id])
+      end
     end
 end

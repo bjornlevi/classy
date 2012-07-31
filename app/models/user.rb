@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
   has_many :group_applications
   has_many :applications, :through => :group_applications, :source => :group
 
+  has_many :activities
+  has_many :reads
+
   has_one :admin
 
   has_one :profile, class_name: "UserProfile"
