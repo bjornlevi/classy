@@ -5,6 +5,8 @@ class TagsController < ApplicationController
 	end
 
 	def show
+		@response = Post.tagged_with(params[:id]).paginate(page: params[:page])
+		render template: 'feeds/feeds'
 	end
 
 	def create

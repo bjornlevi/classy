@@ -1,0 +1,6 @@
+<%= form_for(@post.references.build, remote: true) do |f| %>
+<%= f.hidden_field :post_id %>
+<%= link_to raw("<i class='icon-plus'></i> Add reference"), '#', 
+	:onclick=>"$('#reference_form form').submit()",
+	alt: "Add reference", title: "Add reference" %>
+<% end %>

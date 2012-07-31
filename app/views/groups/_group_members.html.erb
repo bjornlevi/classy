@@ -1,7 +1,7 @@
 <% if @group_members.count > 0 %>
 	<h3>Group Members (<%= @group_members.count %>)</h3>
 	<table class="table table-striped">
-		<tr><th>User</th><th>Joined</th><th>Role</th><th>Actions</th></tr>
+		<tr><th>User</th><th>Joined</th><th>Role</th><th></th><th>Actions</th></tr>
 		<% for user in @group_members %>
 			<tr>
 				<td>
@@ -9,7 +9,12 @@
 					(<%= user.email %>)
 				</td>
 				<td><%= time_ago_in_words(GroupMember.find_by_user_id_and_group_id(user, @group).created_at) %> ago</td>
-				<td><%= GroupMember.find_by_user_id_and_group_id(user, @group).role %></td> <!-- make this into a button dropdown to change role -->
+				<td>
+					<%= GroupMember.find_by_user_id_and_group_id(user, @group).role %>
+				</td>
+				<td>
+					<%= render partial: 'edit_role_menu', locals: {user: user} %>
+				</td>
 				<td>
 					<%= button_to "Kick", group_member_path(@group), method: :delete,
 						class: "btn btn-mini btn-danger" %>

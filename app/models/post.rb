@@ -5,10 +5,12 @@ class Post < ActiveRecord::Base
 	acts_as_taggable
 
 	belongs_to :user
+	belongs_to :group
+
 	has_many :comments
 	has_many :likes
 	has_many :features
-	belongs_to :group
+	has_many :references
 
 	validates :user_id, presence: true
 	validates :content, presence: true
@@ -36,5 +38,13 @@ class Post < ActiveRecord::Base
 
 	def destroy_feature(user)
 		features.find_by_user_id(user.id).destroy
+	end
+
+	def add_reference(user)
+		reference.create!(user_id: user.id)
+	end
+
+	def destroy_reference(user)
+		reference.find_by_user_id(user.id).destroy
 	end
 end

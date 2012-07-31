@@ -1,6 +1,10 @@
 class GroupsController < ApplicationController
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
   before_filter :signed_in_user
-  before_filter :correct_user, only: :destroy
+  before_filter :correct_user, only: [:destroy, :edit, :update]
+  before_filter :admin_access, only: [:new, :create]
 
   def index
     @groups = current_user.groups
@@ -100,7 +104,16 @@ class GroupsController < ApplicationController
   private
 
     def correct_user
-      @group = Group.find(params[:id])#.owner?(current_user)
+      @group = Group.find(params[:id])#.group_admin?(current_user)
       redirect_to root_path if @group.nil?
     end
+
+    def admin_access
+      redirect_to groups_path, flash: {error: "Access restricted!"} if !Admin.exists?(current_user)
+    end
+
+    def record_not_found
+      redirect_to all_groups_path, flash: {error: "Group not found!"}
+    end
+
 end

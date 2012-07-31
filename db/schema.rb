@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715203225) do
+ActiveRecord::Schema.define(:version => 20120718181929) do
 
   create_table "admins", :force => true do |t|
     t.integer  "user_id"
@@ -94,6 +94,15 @@ ActiveRecord::Schema.define(:version => 20120715203225) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "group_id"
+  end
+
+  create_table "references", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "url"
+    t.string   "url_type"
   end
 
   create_table "taggings", :force => true do |t|

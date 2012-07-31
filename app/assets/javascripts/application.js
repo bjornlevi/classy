@@ -67,11 +67,14 @@ function toggle_dashboard(dashboard_id)
 
 function ajaxPagination()
 {
-  $(".pagination a").click(function() {
+  $(".pagination a").live('click', function() {
     var target = $(this).parents(".dashboard_content");
+    var query = '/feeds/'+get_active_dashboard_id()+$(this).attr("href")
+    if($(this).attr("href").indexOf("feeds") >= 0)
+      query = $(this).attr("href"); //uri fix for will_paginate
     $.ajax({
       type: "GET",
-      url: '/feeds/'+get_active_dashboard_id()+$(this).attr("href"),
+      url: query,
       success: function(data, textStatus, jqXHR){
         target.html(data);
       }

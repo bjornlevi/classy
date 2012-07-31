@@ -1,4 +1,8 @@
 Classy::Application.routes.draw do
+  get "reference/create"
+
+  get "reference/destroy"
+
   get "password_resets/new"
 
   get "user_profile/new"
@@ -30,6 +34,7 @@ Classy::Application.routes.draw do
   resources :friendships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
   resources :features, only: [:create, :destroy]
+  resources :references, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
 
   resources :groups do

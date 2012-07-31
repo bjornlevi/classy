@@ -1,0 +1,14 @@
+<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			Change role
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><%= link_to "Make admin", group_member_path(id: user, role: 'admin'), 
+        method: :put %></li>
+      <li><%= link_to "Make teacher", group_member_path(id: user, role: 'teacher'), 
+        method: :put %></li>
+      <li><%= link_to "Make student", group_member_path(id: user, role: 'student'), 
+        method: :put %></li>      
+		</ul>
+</div>

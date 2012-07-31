@@ -16,4 +16,12 @@ class Group < ActiveRecord::Base
 		self.status == "closed"
 	end
 
+  def is_open?
+    self.status == "open"
+  end
+
+  def group_admin?(user)
+    GroupMember.find_by_group_id_and_user_id(self.id, user.id).role == 'admin'
+  end
+
 end

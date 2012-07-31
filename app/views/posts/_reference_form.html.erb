@@ -1,0 +1,5 @@
+<% unless current_user?(@user) %>
+  <div id="like_form">
+    <%= render 'reference' %>
+  </div>
+<% end %>

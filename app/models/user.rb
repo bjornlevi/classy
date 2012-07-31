@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
   has_many :likes
+  has_many :features
+
+  has_many :references
 
   has_many :group_members
   has_many :groups, :through => :group_members
@@ -59,6 +62,10 @@ class User < ActiveRecord::Base
 
   def unfollow!(other_user)
     friendships.find_by_friend_id(other_user.id).destroy
+  end
+
+  def featured?(post)
+    self.features.find_by_post_id(post)
   end
 
   def likes?(post)
