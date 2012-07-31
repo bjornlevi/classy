@@ -13,7 +13,7 @@
 			<td><%= time_ago_in_words(group.created_at) %></td>
 			<td><%= group.users.count %></td>
 			<td>
-				<%= render partial: 'edit_group_menu', locals: {group: group} %>
+				<%= render partial: 'groups/edit_group_menu', locals: {group: group} %>
 			</td>
 		</tr>
 	<% end %>
