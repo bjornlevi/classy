@@ -93,5 +93,15 @@ namespace :db do
       end
     end
   end
+  task populate_reads: :environment do
+    puts "generating random reads"
+    100.times do |n|
+      u = User.find(rand(1..User.count))
+      p = Post.find(rand(1..Post.count))
+      r = u.reads.build(post_id: p.id)
+      r.created_at = Time.at(rand_in_range(p.created_at.to_f, Time.now.to_f)) #random created_at
+      r.save
+    end
+  end
 
 end
