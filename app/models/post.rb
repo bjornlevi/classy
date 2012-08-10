@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
 	has_many :likes
 	has_many :features
 	has_many :references
+	has_many :reads
 
 	validates :user_id, presence: true
 	validates :content, presence: true
