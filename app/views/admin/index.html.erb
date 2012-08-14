@@ -1,17 +1,11 @@
+
 <h3>Admin console</h3>
 <div class="row">
 	<div class="span4">
 		<%= render 'groups/new_group_button' %>
 		<%= render 'groups/groups' %>
 		<ul>
-			<% for activity in @activities %>
-				<li><%= activity.path %> <%= activity.params %></li>
-			<% end %>
-		</ul>
-		<ul>
-			<% for read in @reads %>
-				<li><%= read.post_id %> </li>
-			<% end %>
+			<li><img src="<%=@chart_url%>"></li>
 		</ul>		
 	</div>
 </div>

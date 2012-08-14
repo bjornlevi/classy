@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+
 $(document).ready(function() {
   //enable typeahead for tagging
   tag_typeahead();
