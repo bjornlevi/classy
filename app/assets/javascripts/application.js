@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require jquery.flot
 $(document).ready(function() {
   //enable typeahead for tagging
   tag_typeahead();
