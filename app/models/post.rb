@@ -26,7 +26,8 @@ class Post < ActiveRecord::Base
 	end
 
 	def self.featured(user)
-		(Post.joins(:features) + Post.joins(:likes) + Post.joins(:comments).group('posts.id')).uniq.sort_by(&:updated_at).reverse #TODO: limit to user groups
+		#(Post.joins(:features) + Post.joins(:likes) + Post.joins(:comments).group('posts.id')).uniq.sort_by(&:updated_at).reverse #TODO: limit to user groups
+		(Post.joins(:features) + Post.joins(:likes)).uniq.sort_by(&:updated_at).reverse #TODO: limit to user groups
 	end
 
 	def add_like(user)
