@@ -1,6 +1,6 @@
 <%= form_for(@post.likes.build, remote: true) do |f| %>
   <%= f.hidden_field :post_id %>
-  <span id="nr_likes"><i class='icon-thumbs-up'></i><%= @post.likes.count %></span>
+  <span id="nr_likes"><%= @post.likes.count %> promoted this</span>
   <%= link_to raw("<i class='icon-plus-sign'></i>"), '#', :onclick=>"$('#like_form form').submit()",
   	alt: "Promote", title: "Promote" %>
 <% end %>

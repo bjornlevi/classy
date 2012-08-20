@@ -48,11 +48,8 @@ class User < ActiveRecord::Base
 
   def recent_feed
     #TODO: limit by last visit date of user
-    (Blurt.limit(25) + Post.limit(25)).sort_by(&:updated_at).reverse
-  end
-
-  def featured_feed
-    #TODO: add "gold stars"
+    #TODO: limit to user groups
+    (Blurt.all + Post.all).sort_by(&:updated_at).reverse
   end
 
   def following?(other_user)

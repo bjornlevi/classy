@@ -25,6 +25,10 @@ class Post < ActiveRecord::Base
 		find_all_by_user_id(friend_ids)
 	end
 
+	def self.featured(user)
+		(Post.joins(:features) + Post.joins(:likes) + Post.joins(:comments).group('posts.id')).uniq.sort_by(&:updated_at).reverse #TODO: limit to user groups
+	end
+
 	def add_like(user)
 		likes.create!(user_id: user.id)
 	end

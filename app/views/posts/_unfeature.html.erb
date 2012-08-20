@@ -2,7 +2,7 @@
              html: { method: :delete },
              remote: true) do |f| %>
 	<%= f.hidden_field :post_id %>
-	<%= link_to raw("Stop featuring this post <i class='icon-volume-off'></i>"), '#', 
+	<%= link_to raw("Remove gold star <i class='icon-goldstar-delete'></i>"), '#', 
 	:onclick=>"$('#feature_form form').submit()",
   	alt: "Promote", title: "Promote" %>
 <% end %>

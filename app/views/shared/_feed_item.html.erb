@@ -37,7 +37,15 @@
     <% end %>
     <span class="content">
       <% if feed_item.class == Post %>
-        <%= feed_item.comments.count %> <i class='icon-comment'></i>
+        <% if feed_item.comments.count > 0 %> 
+          <%= feed_item.comments.count %> <i class='icon-comment'></i> 
+        <% end %>
+        <% if feed_item.likes.count > 0 %> 
+          <%= feed_item.likes.count %> <i class='icon-plus-sign'></i> 
+        <% end %>
+        <% if feed_item.features.count > 0 %> 
+          <%= feed_item.features.count %> <i class='icon-goldstar'></i>
+        <% end %>
       <% end %> 
     </span>
   </div>
