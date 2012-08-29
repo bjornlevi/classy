@@ -19,6 +19,7 @@ class Post < ActiveRecord::Base
 	validates :group_id, presence: true
 
 	default_scope order: 'posts.updated_at DESC'
+	scope :created, reorder('created_at asc')
 
 	def self.from_friends(user)
 		friend_ids = user.friend_ids

@@ -20,6 +20,22 @@ class PostsController < ApplicationController
     @tags = Post.tag_counts.order(:name)
     @typeahead_tags = @tags.map(&:name)
     @post_tags = @post.tag_counts.order(:name)
+
+    if is_admin?(current_user)
+      r = Read.created.where(:post_id => @post.id)
+      @reads = Read.by_user(@user, r.first.created_at, r.last.created_at)
+      @read_range = (0..@reads.max).step(5).to_a
+      @x_axis = []
+      Date.parse(r.last.created_at.to_s).downto(Date.parse(r.first.created_at.to_s)) do |date|
+        @x_axis << (@x_axis.length % 7 == 0 ? date.strftime("%b %d") : '')
+      end
+      @chart_url = Gchart.line(
+        :title => "Post reads",
+        :size => "450x150",
+        :data => @reads, 
+        :axis_with_labels => 'x,y',
+        :axis_labels => [@x_axis.reverse, @read_range])
+    end
   rescue
     render 'error'
   end
@@ -46,7 +62,7 @@ class PostsController < ApplicationController
       @post.title = params[:post][:title]
       @post.content = params[:post][:title]
       @post.group_id = params[:post][:group_id]
-      @post.user_id = current_user
+      @post.user_id = current_user.id
     else
       flash[:error] = "You can not post to this group"
       redirect_to root_path
@@ -58,6 +74,7 @@ class PostsController < ApplicationController
       redirect_to @post
     else
       @feed_items = []
+      flash[:error] = "Error saving post."
       render 'static_pages/home'
     end
   end

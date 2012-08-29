@@ -17,7 +17,21 @@ class UsersController < ApplicationController
     @created_tags = @user.posts.tag_counts_on(:tags).order(:name)
     @given_tags = @user.owned_tags(:tags).order(:name)
     @tags = Post.tag_counts.order(:name)
-  rescue 
+
+    r = Read.created.where(:user_id => @user.id)
+    @reads = Read.by_user(@user, r.first.created_at, r.last.created_at)
+    @read_range = (0..@reads.max).step(5).to_a
+    @x_axis = []
+    Date.parse(r.last.created_at.to_s).downto(Date.parse(r.first.created_at.to_s)) do |date|
+      @x_axis << (@x_axis.length % 7 == 0 ? date.strftime("%b %d") : '')
+    end
+    @chart_url = Gchart.line(
+      :title => "Participation by user: " + @user.name,
+      :size => "450x150",
+      :data => @reads, 
+      :axis_with_labels => 'x,y',
+      :axis_labels => [@x_axis.reverse, @read_range])
+  rescue
     render 'error'
   end
   

@@ -3,6 +3,9 @@
  		<%= render 'shared/user_info' %>
 	</div>
 	<div class="span7">
+		<% if is_admin? %>
+			<img src="<%=@chart_url%>">
+		<% end %>
 		<%= render @post %>
 		<ol class="blurts">
 			<%= render partial: 'comments/comment', collection: @comments %>

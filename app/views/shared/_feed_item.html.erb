@@ -13,9 +13,10 @@
               alt: preview(feed_item.content, 500),
               title: preview(feed_item.content, 500) %>
        </strong> 
+       by @<%= link_to feed_item.user.name, feed_item.user %>
       </span>
     <% else %>
-      <span><%= link_to feed_item.user.name, feed_item.user %></span>
+      <span>Blurt from @<%= link_to feed_item.user.name, feed_item.user %></span>
     <% end %>
 
     <span class="content">

@@ -95,7 +95,7 @@ namespace :db do
   end
   task populate_reads: :environment do
     puts "generating random reads"
-    100.times do |n|
+    1000.times do |n|
       u = User.find(rand(1..User.count))
       p = Post.find(rand(1..Post.count))
       r = u.reads.build(post_id: p.id)

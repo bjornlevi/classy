@@ -8,6 +8,9 @@
 			<%= render 'follow_form' if signed_in? %>
 		</aside>
 		<% if @user.blurts.any? %>
+			<% if is_admin? %>
+				<img src="<%=@chart_url%>">
+			<% end %>
 			<h3>Posts (<%= @user.blurts.count + @user.posts.count %>)</h3>
 			<ol class="posts">
 				<%= render 'shared/feed', :feed_items => @user_feed %>
