@@ -8,5 +8,5 @@
 
 User.create!(email: "admin@admin.com", password: "admin123", password_confirmation: "admin123")
 Admin.create!(user_id: User.first)
-Group.create!(name: "Public", user_id: User.first, status: "open", description: "Opne group")
+Group.create!(name: "Public", user_id: User.first, status: "open", description: "Open group")
 GroupMember.create!(group_id: Group.first, user_id: User.first, role: "admin")
