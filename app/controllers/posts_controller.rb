@@ -21,8 +21,8 @@ class PostsController < ApplicationController
     @typeahead_tags = @tags.map(&:name)
     @post_tags = @post.tag_counts.order(:name)
 
-    if is_admin?(current_user)
-      r = Read.created.where(:post_id => @post.id)
+    r = Read.created.where(:post_id => @post.id)
+    if is_admin?(current_user) and r.count > 0
       @reads = Read.by_user(@user, r.first.created_at, r.last.created_at)
       @read_range = (0..@reads.max).step(5).to_a
       @x_axis = []

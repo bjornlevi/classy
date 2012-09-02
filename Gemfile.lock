@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (3.2.3)
       actionpack (= 3.2.3)
@@ -170,5 +170,5 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer
-  uglifier (>= 1.0.3)
+  uglifier
   will_paginate
