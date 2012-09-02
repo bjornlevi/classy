@@ -42,6 +42,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @user_likes = current_user.likes.map { |like| Post.find(like) }
     if params.has_key?(:group_id) and can_post_to?(params[:group_id]) then #and allowed
       @group = Group.find(params[:group_id])
     else
@@ -60,7 +61,7 @@ class PostsController < ApplicationController
     if can_post_to?(params[:post][:group_id]) then
       @post = Post.new
       @post.title = params[:post][:title]
-      @post.content = params[:post][:title]
+      @post.content = params[:post][:content]
       @post.group_id = params[:post][:group_id]
       @post.user_id = current_user.id
     else
@@ -81,6 +82,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @user_likes = current_user.likes.map { |like| Post.find(like) }
     @group = @post.group
   end
 

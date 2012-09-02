@@ -1,6 +1,19 @@
-<%= form_for(@post.references.build, remote: true) do |f| %>
-<%= f.hidden_field :post_id %>
-<%= link_to raw("<i class='icon-plus'></i> Add reference"), '#', 
-	:onclick=>"$('#reference_form form').submit()",
-	alt: "Add reference", title: "Add reference" %>
-<% end %>
+<div>Add reference</div>
+Filter box here
+<div class="add_references">
+	<ul>
+	<% @user_likes.each do |liked_post| %>
+		<li class="internal">
+			<%= link_to gravatar_for(liked_post.user, size = 32), liked_post.user,
+        		alt: liked_post.user.name, title: liked_post.user.name %>
+			<%= link_to liked_post.title, liked_post,
+              alt: preview(liked_post.content, 100),
+              title: preview(liked_post.content, 100) %>
+            <i class='icon-chevron-right'></i> 
+			<%= link_to raw("Add reference"), '#', 
+				:id => 'reference_'+ liked_post.id.to_s,
+				:class => 'reference_link' %>
+		</li>
+	<% end %>
+	</ul>
+</div>

@@ -27,7 +27,22 @@ $(document).ready(function() {
   //ajax for will_paginate
   ajaxPagination();
 
+  $('.reference_link').click(function(event){
+    post_id = $(this).attr('id').split('reference_')[1];
+    add_reference(post_id)
+    false;
+  });
+
 });
+
+function add_reference(post_id)
+{
+  editor = nicEditors.findEditor('post_content');
+  content = editor.getContent();
+  link = ' <a href="/posts/' + post_id + '">['+post_id+']</a>';
+  editor.setContent(content + link);
+
+}
 
 function tag_typeahead()
 {

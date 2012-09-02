@@ -1,5 +1,12 @@
 <h1>Edit post</h1>
 
-<%= render 'form' %>
+<div class="row">
+	<div class="span8">
+		<%= render 'form' %>
+	</div>
+	<div class="span4">
+		<%= render 'reference_form' %>
+	</div>
+</div>
  
 <%= link_to 'Cancel', @post %>
