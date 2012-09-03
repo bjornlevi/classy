@@ -21,15 +21,15 @@
 	<div class="span3">
 		<h3>All tags</h3>
 		<% tag_cloud @tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
-			<%= link_to a_tag.name, tag_path(a_tag.id), :class => css_class %> 
+			<%= link_to a_tag.name, tag_path(a_tag.name), :class => css_class %> 
 		<% end %>
 		<h3>Recieved tags</h3>
 		<% tag_cloud @created_tags, %w(css1 css2 css3 css4) do |r_tag, css_class| %> 
-			<%= link_to r_tag.name, tag_path(r_tag.id), :class => css_class %> 
+			<%= link_to r_tag.name, tag_path(r_tag.name), :class => css_class %> 
 		<% end %>
 		<h3>Given tags</h3>
 		<% tag_cloud @given_tags, %w(css1 css2 css3 css4) do |g_tag, css_class| %> 
-			<%= link_to g_tag.name, tag_path(g_tag.id), :class => css_class %> 
+			<%= link_to g_tag.name, tag_path(g_tag.name), :class => css_class %> 
 		<% end %>
 	</div>
 </div>
