@@ -41,7 +41,6 @@ function add_reference(post_id)
   content = editor.getContent();
   link = ' <a href="/posts/' + post_id + '">['+post_id+']</a>';
   editor.setContent(content + link);
-
 }
 
 function tag_typeahead()
@@ -52,7 +51,7 @@ function tag_typeahead()
       $.ajax({
         type: 'POST', 
         url: '/tags', 
-        data: {tag: $('#create_tag').val(), post_id: $('#like_post_id').attr('value')}
+        data: {tag: $('#create_tag').val(), post_id: $('.post').attr('data-id')}
       });
     }
   });

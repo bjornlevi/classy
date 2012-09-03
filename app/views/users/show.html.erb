@@ -3,7 +3,7 @@
  		<%= render 'shared/user_info' %>
  		<section>
  			<h4>About</h4>
- 			<%= @user.profile.description %>
+ 			<%= @user.profile.description unless @user.profile.nil? %>
  		</section>
 	</div>
 	<div class="span6">
