@@ -1,6 +1,6 @@
 <section>
-  	<%= link_to(@user.name, @user) %>
-  	<%= link_to(raw("<i class='icon-edit'></i>"), edit_user_profile_path(@user)) if @user_id == current_user.id %>
+  	<%= link_to(@user.name, @user) %> 
+  	<%= link_to(raw("<i class='icon-edit'></i>"), edit_user_profile_path(@user)) if @user.id == current_user.id %>
   	<% if @user.id == current_user.id and @user.profile.nil? %>
   		<section>
   			<%= link_to("UPDATE PROFILE", new_user_profile_path, class:"btn btn-danger") %>

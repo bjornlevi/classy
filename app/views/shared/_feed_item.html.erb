@@ -14,9 +14,13 @@
               title: preview(feed_item.content, 500) %>
        </strong> 
        by @<%= link_to feed_item.user.name, feed_item.user %>
+       <%= time_ago_in_words(feed_item.created_at) %> ago
       </span>
     <% else %>
-      <span>Blurt from @<%= link_to feed_item.user.name, feed_item.user %></span>
+      <span>
+        Blurt from @<%= link_to feed_item.user.name, feed_item.user %>
+        <%= time_ago_in_words(feed_item.created_at) %> ago
+      </span>
     <% end %>
 
     <span class="content">
