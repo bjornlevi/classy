@@ -5,10 +5,11 @@ class DashboardController < ApplicationController
 
   def home
   	@user = current_user
-  	@blurts = current_user.blurts.build
-  	@recents = current_user.recent_feed.paginate(page: params[:page])
-  	@friends = current_user.friend_feed.paginate(page: params[:page])
-    @featured = Post.featured(current_user).paginate(page: params[:page]) #TODO: limit to user groups
+  	@blurts = @user.blurts.build
+  	@recents = @user.recent_feed.paginate(page: params[:page])
+  	@friends = @user.friend_feed.paginate(page: params[:page])
+    @featured = Post.featured(@user).paginate(page: params[:page]) #TODO: limit to user groups
+    @notifications = @user.activity_feed.paginate(page: params[:page])
   	@tags = Post.tag_counts.order(:name)
     respond_to do |format|
       format.html

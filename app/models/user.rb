@@ -52,6 +52,11 @@ class User < ActiveRecord::Base
     (Blurt.all + Post.all).sort_by(&:updated_at).reverse
   end
 
+  def activity_feed
+    #posts liked, commented, 
+    (likes.map {|like| Post.find(like) } + comments.map {|c| Post.find(c.post_id)}).sort_by(&:updated_at).reverse
+  end
+
   def following?(other_user)
     friendships.find_by_friend_id(other_user.id)
   end
