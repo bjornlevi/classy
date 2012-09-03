@@ -15,6 +15,5 @@ class TagsController < ApplicationController
 		new_tags = p.tags_from(current_user).append(@tag_name).join(',')
 		current_user.tag(p, with: new_tags, on: :tags)
 		@tag_response = "tag added"
-		@tag_id = p.tags.where(name: @tag_name).first.id
 	end
 end
