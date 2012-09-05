@@ -42,7 +42,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @user_likes = current_user.likes.map { |like| Post.find(like) }
+    @user_bookmarks = current_user.bookmarks.order(&:created_at).reverse.map { |like| Post.find(like) }
     if params.has_key?(:group_id) and can_post_to?(params[:group_id]) then #and allowed
       @group = Group.find(params[:group_id])
     else
@@ -82,7 +82,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    @user_likes = current_user.likes.map { |like| Post.find(like) }
+    @user_bookmarks = current_user.bookmarks.map { |like| Post.find(like) }
     @group = @post.group
   end
 

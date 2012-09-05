@@ -1,4 +1,8 @@
 Classy::Application.routes.draw do
+  get "bookmark/create"
+
+  get "bookmark/destroy"
+
   get "reference/create"
 
   get "reference/destroy"
@@ -33,6 +37,7 @@ Classy::Application.routes.draw do
   end
   resources :friendships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
+  resources :bookmarks, only: [:create, :destroy]
   resources :features, only: [:create, :destroy]
   resources :references, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]

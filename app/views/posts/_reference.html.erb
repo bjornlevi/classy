@@ -2,16 +2,16 @@
 Filter box here
 <div class="add_references">
 	<ul>
-	<% @user_likes.each do |liked_post| %>
+	<% @user_bookmarks.each do |bookmarked_post| %>
 		<li class="internal">
-			<%= link_to gravatar_for(liked_post.user, size = 32), liked_post.user,
-        		alt: liked_post.user.name, title: liked_post.user.name %>
-			<%= link_to liked_post.title, liked_post,
-              alt: preview(liked_post.content, 100),
-              title: preview(liked_post.content, 100) %>
-            <i class='icon-chevron-right'></i> 
+			<%= link_to gravatar_for(bookmarked_post.user, size = 16), bookmarked_post.user,
+        		alt: bookmarked_post.user.name, title: bookmarked_post.user.name %>
+			<%= link_to bookmarked_post.title, bookmarked_post,
+              alt: preview(bookmarked_post.content, 100),
+              title: preview(bookmarked_post.content, 100) %>
+            <i class='icon-chevron-right'></i>
 			<%= link_to raw("Add reference"), '#', 
-				:id => 'reference_'+ liked_post.id.to_s,
+				:id => 'reference_'+ bookmarked_post.id.to_s,
 				:class => 'reference_link' %>
 		</li>
 	<% end %>

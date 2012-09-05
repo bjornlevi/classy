@@ -9,6 +9,7 @@ class Post < ActiveRecord::Base
 
 	has_many :comments
 	has_many :likes
+	has_many :bookmarks
 	has_many :features
 	has_many :references
 	has_many :reads
@@ -37,6 +38,14 @@ class Post < ActiveRecord::Base
 
 	def destroy_like(user)
 		likes.find_by_user_id(user.id).destroy
+	end
+
+	def add_bookmark(user)
+		bookmarks.create!(user_id: user.id)
+	end
+
+	def destroy_bookmark(user)
+		bookmarks.find_by_user_id(user.id).destroy
 	end
 
 	def add_feature(user)

@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
   has_many :likes
+  has_many :bookmarks
   has_many :features
 
   has_many :references
@@ -79,6 +80,10 @@ class User < ActiveRecord::Base
 
   def likes?(post)
     self.likes.find_by_post_id(post)
+  end
+
+  def bookmarks?(post)
+    self.bookmarks.find_by_post_id(post)
   end
 
   def name

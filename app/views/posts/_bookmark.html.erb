@@ -1,0 +1,6 @@
+<%= form_for(@post.bookmarks.build, remote: true) do |f| %>
+  <%= f.hidden_field :post_id %>
+  <span id="nr_bookmarks"><%= @post.bookmarks.count %> bookmarked this</span>
+  <%= link_to raw("<i class='icon-bookmark'></i>"), '#', :onclick=>"$('#bookmark_form form').submit()",
+  	alt: "Bookmark", title: "Bookmark" %>
+<% end %>

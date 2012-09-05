@@ -1,0 +1,9 @@
+<% unless current_user?(@user) %>
+  <div id="bookmark_form">
+  <% if current_user.bookmarks?(@post) %>
+    <%= render 'destroy_bookmark' %>
+  <% else %>
+    <%= render 'bookmark' %>
+  <% end %>
+  </div>
+<% end %>
