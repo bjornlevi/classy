@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
       likes.map {|like| Post.find(like) } + 
       comments.map {|c| Post.find(c.post_id)} + 
       posts
-    ).sort_by(&:updated_at).reverse
+    ).uniq.sort_by(&:updated_at).reverse
   end
 
   def following?(other_user)

@@ -109,7 +109,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
+    #@post.destroy
+    flash[:error] = "Deleting posts not allowed at the moment, edit it's content instead."
     respond_to do |format|
       format.html { redirect_back_or root_path }
       format.json { head :no_content }
@@ -127,5 +128,6 @@ class PostsController < ApplicationController
       if @post.user != current_user
         Read.create!(user_id: current_user.id, post_id: params[:id])
       end
+    rescue
     end
 end

@@ -1,4 +1,6 @@
 class UserProfilesController < ApplicationController
+  before_filter :signed_in_user
+  before_filter :correct_user
   def new
   	@profile = UserProfile.new
   end
@@ -15,18 +17,23 @@ class UserProfilesController < ApplicationController
   end
 
   def edit
-  	@profile = UserProfile.find(params[:id])
+  	@profile = @user.profile
   	render 'new'
   end
 
   def update
-    @profile = UserProfile.find(params[:id])
+    @profile = @user.profile
     if @profile.update_attributes(params[:user_profile])
       flash[:success] = "Profile updated"
-      redirect_to current_user
     else
-      render 'new'
+      flash[:error] = "Update failed"
     end  	
+    redirect_to current_user
   end
 
+private
+
+  def correct_user
+    @user = current_user
+  end
 end
