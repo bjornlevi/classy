@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
   	@friends = @user.friend_feed.paginate(page: params[:page], per_page: 10000)
     @featured = Post.featured(@user).paginate(page: params[:page], per_page: 10000) #TODO: limit to user groups
     @notifications = @user.activity_feed.paginate(page: params[:page], per_page: 10000)
-    @bookmarks = (@user.bookmarks.order(&:created_at).reverse.map {|bm| Post.find(bm)}).paginate(page: params[:page], per_page: 10000)
+    @bookmarks = (@user.bookmarks.order(&:created_at).map {|bm| Post.find(bm.post_id)}).paginate(page: params[:page], per_page: 10000)
   	@tags = Post.tag_counts.order(:name)
     respond_to do |format|
       format.html
