@@ -14,8 +14,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @blurts = current_user.blurts.build if signed_in?
     @user_feed = (@user.posts + @user.blurts).sort_by(&:updated_at).reverse.paginate(page: params[:page])
-    @created_tags = @user.posts.tag_counts_on(:tags).order(:name)
-    @given_tags = @user.owned_tags(:tags).order(:name)
+    #@created_tags = @user.posts.tag_counts_on(:tags).order(:name)
+    #@given_tags = @user.owned_tags(:tags).order(:name)
     @tags = Post.tag_counts.order(:name)
 
     r = Read.created.where(:user_id => @user.id)
