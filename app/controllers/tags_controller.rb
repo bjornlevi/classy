@@ -1,11 +1,9 @@
 class TagsController < ApplicationController
   	before_filter :signed_in_user
-
-	def index
-	end
+  	before_filter :correct_user, only: :destroy
 
 	def show
-		@response = Post.tagged_with(params[:id]).paginate(page: params[:page])
+		@response = Post.tagged_with(params[:id]).paginate(page: params[:page]).uniq
 		render template: 'feeds/feeds'
 	end
 
@@ -16,4 +14,5 @@ class TagsController < ApplicationController
 		current_user.tag(p, with: new_tags, on: :tags)
 		@tag_response = "tag added"
 	end
+
 end

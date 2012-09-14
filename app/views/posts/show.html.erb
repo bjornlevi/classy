@@ -23,14 +23,10 @@
 	</div>
 	<div id="tag_response"></div>
 
-	<h3 id="post_tags">Tags</h3>
-	<% tag_cloud @post_tags, %w(css1 css2 css3 css4) do |tag, css_class| %> 
-		<%= link_to tag.name, tag_path(tag.name), :class => css_class %> 
-	<% end %>
+	<%= render partial: 'shared/tags', locals: {title: "My tags", tags: @user_tags, delete_link: 'true'} %>
 	<hr />
-	<h3>All tags</h3>
-	<% tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class| %> 
-		<%= link_to tag.name, tag_path(tag.name), :class => css_class %> 
-	<% end %>
+	<%= render partial: 'shared/tags', locals: {title: "Post tags", tags: @post_tags} %>
+	<hr />
+	<%= render partial: 'shared/tags', locals: {title: "All tags", tags: @all_tags} %>
 
 </div>

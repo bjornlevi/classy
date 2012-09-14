@@ -34,6 +34,9 @@ Classy::Application.routes.draw do
   resources :blurts, only: [:create, :destroy]
   resources :posts, except: [:new] do #new post is handled through the :groups resource
     resources :comments
+    member do
+      put 'remove_tag', :as => :remove_tag
+    end
   end
   resources :friendships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
@@ -55,7 +58,7 @@ Classy::Application.routes.draw do
 
   resources :admin, only: [:index]
 
-  resources :tags, only: [:create, :index, :show]
+  resources :tags, only: [:create, :show]
 
   resources :user_profiles, only: [:new, :create, :update, :edit]
 

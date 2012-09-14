@@ -17,9 +17,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments
     @user = User.find(@post.user)
-    @tags = Post.tag_counts.order(:name)
-    @typeahead_tags = @tags.map(&:name)
+    @all_tags = Post.tag_counts.order(:name)
+    @typeahead_tags = @all_tags.map(&:name)
     @post_tags = @post.tag_counts.order(:name)
+    @user_tags = @post.owner_tags_on(current_user, :tags)
 
     r = Read.created.where(:post_id => @post.id)
     if is_admin?(current_user) and r.count > 0
@@ -115,6 +116,14 @@ class PostsController < ApplicationController
       format.html { redirect_back_or root_path }
       format.json { head :no_content }
     end
+  end
+
+  def remove_tag
+    p = Post.find(params[:id])
+    tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag])
+    t = ActsAsTaggableOn::Tagging.find_by_tag_id_and_tagger_id_and_taggable_id(tag.id, current_user.id, p.id).delete
+    flash[:success] = "Tag deleted"
+    redirect_to p
   end
 
   private

@@ -1,0 +1,11 @@
+<h3><%= title %></h3>
+<% if tags.empty? %>
+	No tags
+<% else %>
+	<% tag_cloud tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
+		<%= link_to a_tag.name, tag_path(a_tag.name), :class => css_class %>
+		<% if local_assigns.has_key? :delete_link %>
+			<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_post_path(@post, tag: a_tag.name), :method => :put %>
+		<% end %>
+	<% end %>
+<% end %>

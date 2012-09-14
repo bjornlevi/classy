@@ -23,9 +23,8 @@
 		<% end %>
 	</div>
 	<div class="span3">
-		<h3>All tags</h3>
-		<% tag_cloud @tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
-			<%= link_to a_tag.name, tag_path(a_tag.name), :class => css_class %> 
-		<% end %>
+		<%= render partial: 'shared/tags', locals: {title: "My tags", tags: @user_tags} %>
+		<hr />
+		<%= render partial: 'shared/tags', locals: {title: "All tags", tags: @all_tags} %>
 	</div>
 </div>
