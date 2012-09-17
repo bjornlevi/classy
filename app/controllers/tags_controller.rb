@@ -7,12 +7,4 @@ class TagsController < ApplicationController
 		render template: 'feeds/feeds'
 	end
 
-	def create
-		p = Post.find(params[:post_id])
-		@tag_name = params[:tag]
-		new_tags = p.tags_from(current_user).append(@tag_name).join(',')
-		current_user.tag(p, with: new_tags, on: :tags)
-		@tag_response = "tag added"
-	end
-
 end

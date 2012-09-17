@@ -12,6 +12,7 @@ class DashboardController < ApplicationController
     @notifications = @user.activity_feed.paginate(page: params[:page], per_page: 10000)
     @bookmarks = (@user.bookmarks.order(&:created_at).map {|bm| Post.find(bm.post_id)}).paginate(page: params[:page], per_page: 10000)
   	@all_tags = Post.tag_counts.order(:name)
+    @group_tags = Group.tag_counts.order(:name)
     @user_tags = @user.owned_tags(:tags).order(:name)
 
     respond_to do |format|

@@ -17,8 +17,9 @@ class UsersController < ApplicationController
     #@created_tags = @user.posts.tag_counts_on(:tags).order(:name)
     #@given_tags = @user.owned_tags(:tags).order(:name)
     @all_tags = Post.tag_counts.order(:name)
+    @group_tags = Group.tag_counts.order(:name)
     @typeahead_tags = @all_tags.map(&:name)
-    @user_tags = @user.posts.tag_counts_on(:tags).order(:name)
+    @user_tags = @user.owned_tags(:tags).order(:name)
 
     r = Read.created.where(:user_id => @user.id)
     if r.count > 0

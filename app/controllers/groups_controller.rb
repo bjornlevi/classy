@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: [:destroy, :edit, :update]
   before_filter :admin_access, only: [:new, :create]
+  before_filter :teacher_access, only: [:add_tag, :remove_tag]
 
   def index
     @groups = current_user.groups
@@ -24,6 +25,9 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @applications = GroupApplication.where(group_id: @group.id)
     @group_members = @group.users.order('users.email')
+    @all_tags = Group.tag_counts.order(:name)
+    @group_tags = Group.tag_counts.order(:name)
+    @typeahead_tags = @all_tags.map(&:name)
   end
 
   def new
@@ -101,6 +105,20 @@ class GroupsController < ApplicationController
     end
   end
 
+  def add_tag
+    @tag_name = params[:tag]
+    new_tags = @group.tags_from(current_user).append(@tag_name).join(',')
+    current_user.tag(@group, with: new_tags, on: :tags)
+    @tag_response = "tag added"
+  end
+
+  def remove_tag
+    tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag]) #need to fix to search for "group" and "post" class
+    t = ActsAsTaggableOn::Tagging.find_by_tag_id_and_tagger_id_and_taggable_id_and_taggable_type(tag.id, current_user.id, @group.id, "Group").delete
+    flash[:success] = "Tag deleted"
+    redirect_to @group
+  end
+
   private
 
     def correct_user
@@ -110,6 +128,11 @@ class GroupsController < ApplicationController
 
     def admin_access
       redirect_to groups_path, flash: {error: "Access restricted!"} if !Admin.exists?(current_user)
+    end
+
+    def teacher_access
+      @group = Group.find(params[:id])
+      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(current_user.id, @group.id)
     end
 
     def record_not_found

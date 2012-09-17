@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @comments = @post.comments
     @user = User.find(@post.user)
     @all_tags = Post.tag_counts.order(:name)
+    @group_tags = Group.tag_counts.order(:name)
     @typeahead_tags = @all_tags.map(&:name)
     @post_tags = @post.tag_counts.order(:name)
     @user_tags = @post.owner_tags_on(current_user, :tags)
@@ -118,10 +119,18 @@ class PostsController < ApplicationController
     end
   end
 
+  def add_tag
+    p = Post.find(params[:post_id])
+    @tag_name = params[:tag]
+    new_tags = p.tags_from(current_user).append(@tag_name).join(',')
+    current_user.tag(p, with: new_tags, on: :tags)
+    @tag_response = "tag added"
+  end
+
   def remove_tag
     p = Post.find(params[:id])
     tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag])
-    t = ActsAsTaggableOn::Tagging.find_by_tag_id_and_tagger_id_and_taggable_id(tag.id, current_user.id, p.id).delete
+    t = ActsAsTaggableOn::Tagging.find_by_tag_id_and_tagger_id_and_taggable_id_and_taggable_type(tag.id, current_user.id, p.id, "Post").delete
     flash[:success] = "Tag deleted"
     redirect_to p
   end

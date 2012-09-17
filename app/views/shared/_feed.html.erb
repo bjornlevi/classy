@@ -4,4 +4,6 @@
     	<%= render partial: 'shared/feed_item', collection: feed_items %>
   	</ol>
   <%= will_paginate feed_items %>
+<% else %>
+	No content for this selection
 <% end %>

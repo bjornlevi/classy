@@ -45,13 +45,24 @@ function add_reference(post_id)
 
 function tag_typeahead()
 {
+  var postid = $('.post').attr('data-id');
+  var groupid = $('.group').attr('data-id')
   $('.typeahead').typeahead();
-  $('#create_tag').keypress( function( e ) {
+  $('#create_post_tag').keypress( function( e ) {
     if( e.keyCode == 13 ) {
       $.ajax({
         type: 'POST', 
-        url: '/tags', 
-        data: {tag: $('#create_tag').val(), post_id: $('.post').attr('data-id')}
+        url: '/posts/'+postid+'/add_tag', 
+        data: {tag: $('#create_post_tag').val(), post_id: postid}
+      });
+    }
+  });
+  $('#create_group_tag').keypress( function( e ) {
+    if( e.keyCode == 13 ) {
+      $.ajax({
+        type: 'POST', 
+        url: '/groups/'+groupid+'/add_tag', 
+        data: {tag: $('#create_group_tag').val(), group_id: groupid}
       });
     }
   });

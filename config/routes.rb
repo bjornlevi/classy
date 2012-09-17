@@ -36,6 +36,7 @@ Classy::Application.routes.draw do
     resources :comments
     member do
       put 'remove_tag', :as => :remove_tag
+      post 'add_tag', :as => :add_tag
     end
   end
   resources :friendships, only: [:create, :destroy]
@@ -47,6 +48,10 @@ Classy::Application.routes.draw do
 
   resources :groups do
     resources :posts, only: [:new]
+    member do
+      put 'remove_tag', :as => :remove_tag
+      post 'add_tag', :as => :add_tag
+    end
     collection do
       get 'all', as: 'all'
       put 'toggle_status/:id' => 'groups#toggle_status', as: 'toggle_status'
@@ -58,7 +63,7 @@ Classy::Application.routes.draw do
 
   resources :admin, only: [:index]
 
-  resources :tags, only: [:create, :show]
+  resources :tags, only: [:show]
 
   resources :user_profiles, only: [:new, :create, :update, :edit]
 

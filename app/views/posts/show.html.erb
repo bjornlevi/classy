@@ -17,16 +17,19 @@
 	</div>
 
 	<div>
- 		<%= text_field_tag :tags, params[:tags], placeholder: "Add tag",
+ 		<%= text_field_tag :add_tag, params[:tags], placeholder: "Add tag",
 			:data => { :provide => 'typeahead', :source => @typeahead_tags},
-			class: "span2 tag_form", id: "create_tag" %>
+			class: "span2 tag_form", id: "create_post_tag" %>
 	</div>
 	<div id="tag_response"></div>
 
-	<%= render partial: 'shared/tags', locals: {title: "My tags", tags: @user_tags, delete_link: 'true'} %>
+	<%= render partial: 'shared/tags', locals: {title: "My tags", tags: @user_tags, delete_link: true} %>
 	<hr />
 	<%= render partial: 'shared/tags', locals: {title: "Post tags", tags: @post_tags} %>
 	<hr />
-	<%= render partial: 'shared/tags', locals: {title: "All tags", tags: @all_tags} %>
+	<%= render partial: 'shared/tags', 
+				locals: {title: "User tags", tags: @all_tags, print_group_tags: false} %>
+	<hr />
+	<%= render partial: 'shared/tags', locals: {title: "Group tags", tags: @group_tags} %>
 
 </div>

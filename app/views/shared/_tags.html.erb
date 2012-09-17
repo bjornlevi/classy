@@ -2,10 +2,33 @@
 <% if tags.empty? %>
 	No tags
 <% else %>
-	<% tag_cloud tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %> 
-		<%= link_to a_tag.name, tag_path(a_tag.name), :class => css_class %>
+	<% tag_cloud tags, %w(css1 css2 css3 css4) do |a_tag, css_class| %>
+		<%
+			#print options:
+				#print group_tags with color
+				#don't print group tags
+				#always print non group tags
+		%>
+		<% if @group_tags.include?(a_tag) and local_assigns.has_key? :print_group_tags %>
+			<% #print group_tags with color %>
+			<%= link_to a_tag.name, tag_path(a_tag.name), :class => css_class+"c" %>
+		<% elsif @group_tags.include?(a_tag) %>
+			<% #don't print group tags %>
+		<% else %>
+			<% #always print non group tags %>
+			<%= link_to a_tag.name, tag_path(a_tag.name), :class => css_class %>
+		<%end%>
 		<% if local_assigns.has_key? :delete_link %>
-			<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_post_path(@post, tag: a_tag.name), :method => :put %>
+			<% if local_assigns.has_key? :group_link_delete %>
+				<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_group_path(@post, 
+					tag: a_tag.name), :method => :put %>
+			<% else %>
+				<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_post_path(@group, 
+					tag: a_tag.name), :method => :put %>
+			<% end %>
 		<% end %>
 	<% end %>
+<% end %>
+<% if local_assigns.has_key? :print_group_tags %>
+	<div class="tag_caption">* Special group tags</div>
 <% end %>
