@@ -50,12 +50,12 @@
 			</div>				
 		</div>
 		<div class="span3">
-			<%= render partial: 'shared/tags', locals: {title: "My tags", tags: @user_tags} %>
-			<hr />
 			<%= render partial: 'shared/tags', 
-				locals: {title: "User tags", tags: @all_tags} %>
+				locals: {title: "My tags", tags: @user_tags, print_group_tags: true} %>
 			<hr />
-			<%= render partial: 'shared/tags', locals: {title: "Group tags", tags: @group_tags} %>
+			<%= render partial: 'shared/tags', locals: {title: "User tags", tags: @all_tags} %>
+			<hr />
+			<%= render partial: 'shared/tags', locals: {title: "Group tags", tags: @group_tags, print_group_tags: true} %>
 		</div>
 	</div>
 <% else %>

@@ -23,11 +23,13 @@
 		<% end %>
 	</div>
 	<div class="span3">
-		<%= render partial: 'shared/tags', locals: {title: @user.name.to_s + " tags", tags: @user_tags} %>
+		<%= render partial: 'shared/tags', 
+			locals: {title: @user.name.to_s + " tags", tags: @user_tags, print_group_tags: true} %>
 		<hr />
 		<%= render partial: 'shared/tags', 
-			locals: {title: "All users tags", tags: @all_tags, print_group_tags: false} %>
+			locals: {title: "All users tags", tags: @all_tags} %>
 		<hr />
-		<%= render partial: 'shared/tags', locals: {title: "Group tags", tags: @group_tags} %>
+		<%= render partial: 'shared/tags', 
+		locals: {title: "Group tags", tags: @group_tags, print_group_tags: true} %>
 	</div>
 </div>

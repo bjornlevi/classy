@@ -1,3 +1,9 @@
+<% 
+if local_assigns.has_key? :print_group_tags
+	#filter the tags
+	tags.map{ |tag| if !@group_tags.include?(tag) then tag end}
+end 
+%>
 <h3><%= title %></h3>
 <% if tags.empty? %>
 	No tags
