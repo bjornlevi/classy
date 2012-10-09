@@ -5,6 +5,11 @@
  			<h4>About</h4>
  			<%= safe_html_output @user.profile.description unless @user.profile.nil? %>
  		</section>
+ 		<% if current_user.id == @user.id %>
+	 		<section>
+	 			<%= render 'stats' %>
+	 		</section>
+ 		<% end %>
 	</div>
 	<div class="span6">
 		<aside>

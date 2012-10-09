@@ -1,7 +1,7 @@
 <% if @group_members.count > 0 %>
 	<h3>Group Members (<%= @group_members.count %>)</h3>
 	<table class="table table-striped">
-		<tr><th>User</th><th>Joined</th><th>Role</th><th></th><th>Actions</th></tr>
+		<tr><th>User</th><th>Joined</th><th>Role</th><th>Edit</th><th>Actions</th></tr>
 		<% for user in @group_members %>
 			<tr>
 				<td>
