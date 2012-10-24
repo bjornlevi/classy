@@ -5,7 +5,7 @@
  			<h4>About</h4>
  			<%= safe_html_output @user.profile.description unless @user.profile.nil? %>
  		</section>
- 		<% if current_user.id == @user.id %>
+ 		<% if current_user.id == @user.id or is_teacher? %>
 	 		<section>
 	 			<%= render 'stats' %>
 	 		</section>
@@ -16,7 +16,7 @@
 			<%= render 'shared/blurt_form' if signed_in?%>		
 			<%= render 'follow_form' if signed_in? %>
 		</aside>
-		<% if @user.blurts.any? %>
+		<% if @user_feed.any? %>
 			<% if is_admin? %>
 				<img src="<%=@chart_url%>">
 			<% end %>

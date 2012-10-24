@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     @stats[:tags] = @user.owned_tags(:tags).count
     @stats[:likes] = @user.likes.count
     @stats[:comments] = @user.comments.count
+    @stats[:bookmarks] = @user.bookmarks.count
 
     r = Read.created.where(:user_id => @user.id)
     if r.count > 0

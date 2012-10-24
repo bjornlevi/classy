@@ -2,7 +2,7 @@
              html: { method: :delete },
              remote: true) do |f| %>
 	<%= f.hidden_field :post_id %>            
-	<span id="nr_likes"><%= @post.likes.count %> promoted this</span>
+	<span id="nr_likes"><%= @post.likes_count %> promoted this</span>
 	<%= link_to raw("<i class='icon-minus-sign'></i>"), '#',  :onclick=>"$('#like_form form').submit()",
   	alt: "Promote", title: "Promote" %>
 <% end %>
