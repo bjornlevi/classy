@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @blurts = current_user.blurts.build if signed_in?
-    @user_feed = (@user.posts + @user.blurts).sort_by(&:updated_at).reverse.paginate(page: params[:page])
+    @user_feed = group_filter((@user.posts + @user.blurts).sort_by(&:updated_at)).reverse.paginate(page: params[:page])
     #@created_tags = @user.posts.tag_counts_on(:tags).order(:name)
     #@given_tags = @user.owned_tags(:tags).order(:name)
     @all_tags = Post.tag_counts.order(:name)
@@ -103,6 +103,15 @@ private
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_path) unless current_user?(@user)
+  end
+
+  def group_filter(feed)
+    current_user_groups = current_user.groups.pluck(:group_id)
+    feed.select do |i|
+      if i.class == Post
+        current_user_groups.include?(i.group_id)
+      end
+    end
   end
 
 end

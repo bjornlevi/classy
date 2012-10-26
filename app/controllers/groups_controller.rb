@@ -44,7 +44,6 @@ class GroupsController < ApplicationController
     @group.status = "open"
     @group.user_id = current_user.id
     if @group.save
-      @header_groups << @group
       GroupMember.create(group_id: @group.id, user_id: @group.user_id, role: "admin")
       flash[:success] = "Group created!"
       redirect_to groups_path

@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy]
   before_filter :correct_user,   only: :destroy
-
+  before_filter :group_access, only: :show
   after_filter :read_logging, only: :show
 
   def index
@@ -147,5 +147,10 @@ class PostsController < ApplicationController
         Read.create!(user_id: current_user.id, post_id: params[:id])
       end
     rescue
+    end
+
+    def group_access
+      flash[:error] = "Post not found"
+      redirect_to root_path unless current_user.groups.pluck(:group_id).include?(@post.group.id)
     end
 end

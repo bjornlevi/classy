@@ -1,4 +1,7 @@
-<li>
-  <%= gravatar_for user, size=32 %>
-  <%= link_to user.name, user %>
-</li>
+<tr>
+  <td><%= gravatar_for user, size=32 %></td>
+  <td><%= link_to user.name, user %></td>
+  <% if is_admin?(current_user) %>
+  	<td><%= admin_link(user) %></td>
+  <% end %>
+</tr>

@@ -4,17 +4,21 @@
 		<th>Creator</th>
 		<th>Created</th>
 		<th>#Members</th>
-		<th></th>
+		<th>#Posts</th>
+		<th>Actions</th>
 	</thead>
-	<% for group in @groups %>
-		<tr>
-			<td><%= link_to group.name, group_path(group) %></td>
-			<td><%= User.find(group.user_id).email %></td>
-			<td><%= time_ago_in_words(group.created_at) %></td>
-			<td><%= group.users.count %></td>
-			<td>
-				<%= render partial: 'groups/edit_group_menu', locals: {group: group} %>
-			</td>
-		</tr>
+	<% for group in @groups %>	
+		<% if is_member?(group) %>
+			<tr>
+				<td><%= link_to group.name, group_path(group) %></td>
+				<td><%= link_to User.find(group.user_id).name, User.find(group.user_id) %></td>
+				<td><%= time_ago_in_words(group.created_at) %> ago</td>
+				<td><%= group.users.count %></td>
+				<td><%= group.posts.count %></td>
+				<td>
+					<%= render partial: 'groups/edit_group_menu', locals: {group: group} %>
+				</td>
+			</tr>
+		<% end %>
 	<% end %>
 </table>

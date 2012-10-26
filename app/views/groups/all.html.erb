@@ -5,14 +5,16 @@
 		<th>Creator</th>
 		<th>Created</th>
 		<th>#Members</th>
+		<th>#Posts</th>
 		<th>Actions</th>
 	</thead>
 	<% for group in @groups %>
 		<tr>
 			<td><%= link_to group.name, group_path(group) %></td>
-			<td><%= User.find(group.user_id).email %></td>
+			<td><%= link_to User.find(group.user_id).name, User.find(group.user_id) %></td>
 			<td><%= time_ago_in_words(group.created_at) %></td>
 			<td><%= group.users.count %></td>
+			<td><%= group.posts.count %></td>
 			<td>
 				<% if is_member?(group, current_user) %>
 					<%= link_to "Leave", group_member_path(group), 

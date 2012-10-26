@@ -5,7 +5,14 @@ module GroupMembersHelper
 	end
 
 	def is_group_admin?(group)
-		group.group_members.find_by_user_id(current_user.id).role == "admin"
+		u = group.group_members.find_by_user_id(current_user.id)
+		if u.nil? 
+			false
+		elsif u.role == "admin"
+			true
+		else
+			false
+		end
 	end
 
 	def is_teacher?

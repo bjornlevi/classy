@@ -61,7 +61,7 @@ Classy::Application.routes.draw do
   resources :group_applications, only: [:create, :destroy]
   resources :group_members, only: [:create, :destroy, :update]
 
-  resources :admin, only: [:index]
+  resources :admin, only: [:index, :update]
 
   resources :tags, only: [:show]
 
