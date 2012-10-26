@@ -1,8 +1,14 @@
 <li>
 	<span class="user_image_comment">
-		<%= link_to gravatar_for(comment.user, size=40), comment.user %>
+		<%= link_to gravatar_for(comment.user, size=40), comment.user,
+              alt: comment.user.name,
+              title: comment.user.name %>
 	</span>
-	<span class="content"><%= comment.content %></span>
+	<span class="content">
+		by <strong><%= comment.user.name %></strong>
+		<br/>
+		<%= comment.content %>
+	</span>
 	<span class="timestamp">
 		Commented <%= time_ago_in_words(comment.created_at) %> ago.
 	</span>

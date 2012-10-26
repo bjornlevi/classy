@@ -14,7 +14,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @comments = @post.comments
     @user = User.find(@post.user)
     @all_tags = Post.tag_counts.order(:name)
@@ -150,7 +149,7 @@ class PostsController < ApplicationController
     end
 
     def group_access
-      flash[:error] = "Post not found"
+      @post = Post.find(params[:id])
       redirect_to root_path unless current_user.groups.pluck(:group_id).include?(@post.group.id)
     end
 end

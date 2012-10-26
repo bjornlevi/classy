@@ -13,8 +13,12 @@
               alt: preview(feed_item.content, 500),
               title: preview(feed_item.content, 500) %>
        </strong> 
+       <br/>
        by @<%= link_to feed_item.user.name, feed_item.user %>
        <%= time_ago_in_words(feed_item.created_at) %> ago
+       <% if feed_item.class == Post %>
+          to <strong><%= feed_item.group.name %></strong>
+       <% end %>
       </span>
     <% else %>
       <span>
