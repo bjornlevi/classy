@@ -126,12 +126,12 @@ class GroupsController < ApplicationController
     end
 
     def admin_access
-      redirect_to groups_path, flash: {error: "Access restricted!"} if !Admin.exists?(current_user)
+      redirect_to groups_path, flash: {error: "Access restricted!"} if !Admin.exists?(user_id: current_user.id)
     end
 
     def teacher_access
       @group = Group.find(params[:id])
-      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(current_user.id, @group.id)
+      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(user_id: current_user.id, group_id: @group.id)
     end
 
     def record_not_found
