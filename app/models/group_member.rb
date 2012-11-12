@@ -15,4 +15,8 @@ class GroupMember < ActiveRecord::Base
   		false
   	end
   end
+
+  def self.user_groups(user)
+    Group.find(GroupMember.find_all_by_user_id(user.id).map{|m|m.group_id})
+  end
 end

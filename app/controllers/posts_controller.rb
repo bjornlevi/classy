@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     @comments = @post.comments
     @user = User.find(@post.user)
     @all_tags = Post.tag_counts.order(:name)
-    @group_tags = Group.tag_counts.order(:name)
+    @user_groups = GroupMember.user_groups(@user)
     @typeahead_tags = @all_tags.map(&:name)
     @post_tags = @post.tag_counts.order(:name)
     @user_tags = @post.owner_tags_on(current_user, :tags)
