@@ -1,24 +1,31 @@
-<div class="accordion" id="tag_accordion">
+<div class="accordion" id="accordion_main">
 	<% for group in @user_groups %>
 		<div class="accordion-group">
+
 			<div class="accordion-heading">
 				<a class="accordion-toggle" data-toggle="collapse" data-parent="#tag_accordion" href="#collapse<%=group.id%>">
-				<%=group.name%>
+					<i class="icon-chevron-right"></i> <%=group.name%>
 				</a>
 			</div>
-		</div>
-		<div id="collapse<%=group.id%>" class="accordion-body collapse in">
-			<div class="accordion-inner">
-				Popular tags in <%=group.name%>
-				<div class="accordion" id="accordion<%=group.id%>">
-					<%  
-						group_tags = group.tag_counts.order(:name)
-					%>
-					<% for tag in group_tags %>
-						<%= render partial: 'shared/tag_list', locals: {group_tag: tag} %>
-					<% end %>
+
+			<div id="collapse<%=group.id%>" class="accordion-body collapse in">
+
+				<div class="accordion-inner">
+					Top tags in <%=group.name%>
 				</div>
+				<div class="accordion-inner">
+					<div class="accordion" id="accordion<%=group.id%>">
+						<%  
+							group_tags = group.tag_counts.order(:name)
+						%>
+						<% for tag in group_tags %>
+							<%= render partial: 'shared/tag_list', locals: {group_tag: tag} %>
+						<% end %>
+					</div>
+				</div>
+
 			</div>
+
 		</div>
 	<% end %>
 </div>

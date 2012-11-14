@@ -33,6 +33,22 @@ $(document).ready(function() {
     false;
   });
 
+  $('[id^=collapse]').collapse("hide");
+
+  $('[id^=accordion]').on('hidden', function(e){
+    e.stopPropagation()
+    i = $($('i', this).first()[0]);
+    i.removeClass('icon-chevron-down');
+    i.addClass('icon-chevron-right');
+  });
+
+  $('[id^=accordion]').on('shown', function(e){
+    e.stopPropagation()
+    i = $($('i', this).first()[0]);
+    i.removeClass('icon-chevron-right');
+    i.addClass('icon-chevron-down');
+  });
+
 });
 
 function add_reference(post_id)
@@ -66,6 +82,8 @@ function tag_typeahead()
       });
     }
   });
+  $('#create_post_tag').val('') = "";
+
 }
 
 function add_nav_tab_events()

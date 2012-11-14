@@ -12,8 +12,9 @@ class DashboardController < ApplicationController
     @notifications = group_filter(@user.activity_feed).paginate(page: params[:page], per_page: 10000)
     @bookmarks = group_filter((@user.bookmarks.order(&:created_at).map {|bm| Post.find(bm.post_id)})).paginate(page: params[:page], per_page: 10000)
   	@all_tags = Post.tag_counts.order(:name)
-    @group_tags = Group.tag_counts.order(:name)
     @user_tags = @user.owned_tags(:tags).order(:name)
+    @user_groups = GroupMember.user_groups(@user)
+    @group_tags = @user_groups.map{|g|g.tag_counts.order(:name)}.flatten
 
     respond_to do |format|
       format.html

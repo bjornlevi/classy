@@ -26,7 +26,7 @@ class GroupsController < ApplicationController
     @applications = GroupApplication.where(group_id: @group.id)
     @group_members = @group.users.order('users.email')
     @all_tags = Group.tag_counts.order(:name)
-    @group_tags = Group.tag_counts.order(:name)
+    @group_tags = @group.tag_counts.order(:name)
     @typeahead_tags = @all_tags.map(&:name)
   end
 
@@ -130,8 +130,12 @@ class GroupsController < ApplicationController
     end
 
     def teacher_access
-      @group = Group.find(params[:id])
-      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(user_id: current_user.id, group_id: @group.id)
+      @group = Group.find(params[:group_id])
+      puts '*****************'
+      puts @group.id
+      puts current_user.id
+      puts '*****************'
+      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(current_user.id, @group.id)
     end
 
     def record_not_found

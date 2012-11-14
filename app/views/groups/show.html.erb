@@ -16,7 +16,7 @@
 			class: "span2 tag_form", id: "create_group_tag" %>
 	</div>
 	<%= render partial: 'shared/tags', 
-		locals: {title: "All tags", tags: @all_tags, delete_link: true, group_link_delete: true, print_group_tags: true} %>
+		locals: {title: "Group tags", tags: @group_tags, delete_link: true, group_link_delete: true, print_group_tags: true} %>
 	<%= render 'applicants' %>
 	<%= render 'group_members' %>
 <% end %>
