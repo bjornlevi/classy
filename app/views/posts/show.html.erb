@@ -17,12 +17,12 @@
 	</div>
 	<div class="span3">
 		<div>
+			<h3>New tag</h3>
 	 		<%= text_field_tag :add_tag, params[:tags], {placeholder: "Add tag",
 				:data => { :provide => 'typeahead', :source => @typeahead_tags},
 				class: "search", id: "create_post_tag"} %>
 		</div>
 		<div id="tag_response"></div>
-
 		<%= render partial: 'shared/tags', 
 			locals: {title: "Post tags", tags: @post_tags, print_group_tags: true, delete_link: true} %>
 		<%= #render partial: 'shared/tags', 
