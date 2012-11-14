@@ -82,7 +82,7 @@ function tag_typeahead()
       });
     }
   });
-  $('#create_post_tag').val('') = "";
+  $('#create_post_tag').val('');
 
 }
 

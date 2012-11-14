@@ -18,11 +18,11 @@ class PostsController < ApplicationController
     @user = User.find(@post.user)
     @all_tags = Post.tag_counts.order(:name)
     @group = @post.group
-    @group_tags = @group.tag_counts.order(:name)
-    @user_groups = GroupMember.user_groups(@user)
+    @user_groups = GroupMember.user_groups(current_user)
+    @group_tags = @user_groups.map{|g|g.tag_counts.order(:name)}.flatten
     @typeahead_tags = @all_tags.map(&:name)
     @post_tags = @post.tag_counts.order(:name)
-    @user_tags = @post.owner_tags_on(current_user, :tags)
+    @user_tags = @post.owner_tags_on(current_user, :tags).map{|t|t.name}
 
     r = Read.created.where(:post_id => @post.id)
     if is_admin?(current_user) and r.count > 0

@@ -1,1 +1,8 @@
-<%= render 'shared/feed', :feed_items => @response %>
+<div class="row">
+	<div class="span9">
+		<%= render 'shared/feed', :feed_items => @response %>
+	</div>
+	<div class="span3">
+		<%= render partial: 'shared/group_tags' %>
+	</div>	
+

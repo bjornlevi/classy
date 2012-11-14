@@ -3,6 +3,7 @@ if local_assigns.has_key? :print_group_tags
 	#filter the tags
 	tags.map{ |tag| if !@group_tags.include?(tag) then tag end}
 end 
+
 %>
 <h3><%= title %></h3>
 <% if tags.empty? %>
@@ -26,10 +27,10 @@ end
 		<%end%>
 		<% if local_assigns.has_key? :delete_link %>
 			<% if local_assigns.has_key? :group_link_delete %>
-				<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_group_path(@post, 
-					tag: a_tag.name), :method => :put %>
-			<% else %>
-				<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_post_path(@group, 
+				<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_group_path(@group, 
+					tag: a_tag.name, group_id: @group.id), :method => :put %>
+			<% elsif @user_tags.include?(a_tag.name) %>
+				<%= link_to raw("<i class='icon-trash'></i>"), remove_tag_post_path(@post, 
 					tag: a_tag.name), :method => :put %>
 			<% end %>
 		<% end %>
