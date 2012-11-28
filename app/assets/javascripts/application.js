@@ -37,14 +37,14 @@ $(document).ready(function() {
 
   $('[id^=accordion]').on('hidden', function(e){
     e.stopPropagation()
-    i = $($('i', this).first()[0]);
+    i = $($('i', $(e.target).parent()).first()[0]);
     i.removeClass('icon-chevron-down');
     i.addClass('icon-chevron-right');
   });
 
   $('[id^=accordion]').on('shown', function(e){
     e.stopPropagation()
-    i = $($('i', this).first()[0]);
+    i = $($('i', $(e.target).parent()).first()[0]);
     i.removeClass('icon-chevron-right');
     i.addClass('icon-chevron-down');
   });

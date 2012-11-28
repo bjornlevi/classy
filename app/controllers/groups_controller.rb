@@ -113,7 +113,7 @@ class GroupsController < ApplicationController
 
   def remove_tag
     tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag]) #need to fix to search for "group" and "post" class
-    t = ActsAsTaggableOn::Tagging.find_by_tag_id_and_tagger_id_and_taggable_id_and_taggable_type(tag.id, current_user.id, @group.id, "Group").delete
+    t = ActsAsTaggableOn::Tagging.find_by_tag_id_and_taggable_id_and_taggable_type(tag.id, @group.id, "Group").delete
     flash[:success] = "Tag deleted"
     redirect_to @group
   end

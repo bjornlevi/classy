@@ -14,7 +14,7 @@ class DashboardController < ApplicationController
   	@all_tags = Post.tag_counts.order(:name)
     @user_tags = @user.owned_tags(:tags).order(:name)
     @user_groups = GroupMember.user_groups(@user)
-    @group_tags = @user_groups.map{|g|g.tag_counts.order(:name)}.flatten
+    @group_tags = @user_groups.map{|g|g.tag_counts.order(:id)}.flatten
 
     respond_to do |format|
       format.html

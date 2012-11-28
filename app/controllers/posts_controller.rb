@@ -20,7 +20,7 @@ class PostsController < ApplicationController
     @group = @post.group
     @user_groups = GroupMember.user_groups(current_user)
     @group_tags = @user_groups.map{|g|g.tag_counts.order(:name)}.flatten
-    @typeahead_tags = @all_tags.map(&:name)
+    @typeahead_tags = (@all_tags+@group_tags).map(&:name)
     @post_tags = @post.tag_counts.order(:name)
     @user_tags = @post.owner_tags_on(current_user, :tags).map{|t|t.name}
 

@@ -5,7 +5,7 @@
  			<h4>About</h4>
  			<%= safe_html_output @user.profile.description unless @user.profile.nil? %>
  		</section>
- 		<% if current_user.id == @user.id or is_teacher? %>
+ 		<% if current_user.id == @user.id or is_teacher? or is_admin? %>
 	 		<section>
 	 			<%= render 'stats' %>
 	 		</section>
@@ -17,8 +17,8 @@
 			<%= render 'follow_form' if signed_in? %>
 		</aside>
 		<% if @user_feed.any? %>
-			<% if is_admin? %>
-				<img src="<%=@chart_url%>">
+			<% if is_admin? or is_teacher? %>
+				<img src="<%=@participation_chart_url%>">
 			<% end %>
 			<h3>Posts (<%= @user.blurts.count + @user.posts.count %>)</h3>
 			<ol class="posts">
@@ -31,10 +31,6 @@
 		<%= render partial: 'shared/tags', 
 			locals: {title: @user.name.to_s + " tags", tags: @user_tags, print_group_tags: true} %>
 		<hr />
-		<%= render partial: 'shared/tags', 
-			locals: {title: "All users tags", tags: @all_tags} %>
-		<hr />
-		<%= render partial: 'shared/tags', 
-		locals: {title: "Group tags", tags: @group_tags, print_group_tags: true} %>
+		<%= render partial: 'shared/group_tags' %>
 	</div>
 </div>

@@ -4,6 +4,8 @@ class Like < ActiveRecord::Base
   belongs_to :post, :touch => true, counter_cache: true
   belongs_to :user
 
+  scope :created, order('created_at asc')
+
   validates :user_id, presence: true
   validates :post_id, presence: true
 end

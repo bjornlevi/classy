@@ -26,27 +26,38 @@ class UsersController < ApplicationController
     @stats[:likes] = @user.likes.count
     @stats[:comments] = @user.comments.count
     @stats[:bookmarks] = @user.bookmarks.count
+    @user_groups = GroupMember.user_groups(current_user)
+    @group_tags = @user_groups.map{|g|g.tag_counts.order(:id)}.flatten
 
     r = Read.created.where(:user_id => @user.id)
     if r.count > 0
       @reads = Read.by_user(@user, r.first.created_at, r.last.created_at)
       @read_range = (0..@reads.max).step(5).to_a
+      meta_data = (Like.find_all_by_user_id(@user.id)+
+        Comment.find_all_by_user_id(@user.id)+
+        Bookmark.find_all_by_user_id(@user.id)).map{|i|i.created_at.strftime("%b %d")}
+      @meta_values = (r.first.created_at.to_date..r.last.created_at.to_date).map do |date|
+        action = meta_data.count(date.strftime("%b %d"))
+        action || 0
+      end
       @x_axis = []
       Date.parse(r.last.created_at.to_s).downto(Date.parse(r.first.created_at.to_s)) do |date|
         @x_axis << (@x_axis.length % 7 == 0 ? date.strftime("%b %d") : '')
       end
-      @chart_url = Gchart.line(
+      @participation_chart_url = Gchart.line(
         :title => "Participation by user: " + @user.name,
         :size => "450x150",
-        :data => @reads, 
+        :data => [@reads, @meta_values], 
         :axis_with_labels => 'x,y',
-        :axis_labels => [@x_axis.reverse, @read_range])
+        :axis_labels => [@x_axis.reverse, @read_range],
+        :line_colors => "FF0000,00FF00")
     else
       @reads = []
       @read_range = []
       @x_axis = []
-      @chart_url = ''
+      @participation_chart_url = ''
     end
+
   rescue Exception => e
     flash[:error] = e.message.to_s
     render 'error'
