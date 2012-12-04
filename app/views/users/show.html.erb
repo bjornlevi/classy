@@ -18,8 +18,17 @@
 		</aside>
 		<% if @user_feed.any? %>
 			<% if is_admin? or is_teacher? %>
-				<img src="<%=@participation_chart_url%>">
+				<img src="<%=@reads_chart_url%>">
 			<% end %>
+			<% if is_admin? or is_teacher? %>
+				<img src="<%=@self_chart_url%>">
+			<% end %>
+			<% if is_admin? or is_teacher? %>
+				<img src="<%=@other_chart_url%>">
+			<% end %>
+			<% if current_user.id == @user.id or is_admin? or is_teacher? %>
+				<img src="<%=@personal_chart_url%>">
+			<% end %>						
 			<h3>Posts (<%= @user.blurts.count + @user.posts.count %>)</h3>
 			<ol class="posts">
 				<%= render 'shared/feed', :feed_items => @user_feed %>
