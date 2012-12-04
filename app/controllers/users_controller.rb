@@ -126,7 +126,7 @@ class UsersController < ApplicationController
         :axis_with_labels => 'x,y',
         :axis_labels => [@x_axis.reverse, @read_range],
         :bar_colors => ["FF0000","00FF00"],
-        :bar_width_and_spacing => '3,1',
+        :bar_width_and_spacing => '1,0',
         :legend => ["Comments", "Tags"])
       @other_chart_url = Gchart.bar(
         :title => "Other: " + @user.name,
@@ -135,7 +135,7 @@ class UsersController < ApplicationController
         :axis_with_labels => 'x,y',
         :axis_labels => [@x_axis.reverse, @read_range],
         :bar_colors => ["FF0000","00FF00","0000FF","FF6600"],
-        :bar_width_and_spacing => '3,1',
+        :bar_width_and_spacing => '1,0',
         :legend => ["Comments", "Tags", "Likes", "Bookmarks"])
       @personal_chart_url = Gchart.bar(
         :title => "Activity for: " + @user.name,
@@ -144,7 +144,7 @@ class UsersController < ApplicationController
         :axis_with_labels => 'x,y',
         :axis_labels => [@x_axis.reverse, @read_range],
         :bar_colors => ["FF0000","00FF00","0000FF","FF6600"],
-        :bar_width_and_spacing => '3,1',
+        :bar_width_and_spacing => '1,0',
         :legend => ["Comments", "Tags", "Likes", "Bookmarks"])
     else
       @reads = []
