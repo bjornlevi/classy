@@ -4,7 +4,7 @@
 			<i class="icon-chevron-right"></i> <%=group_tag.name%>
 		</a>
 	</div>
-	<div id="collapse<%=group_tag.id%>" class="accordion-body collapse in">
+	<div id="collapse<%=group_tag.id%>" class="accordion-body collapse">
 		<%
 			other_tags = Post.tagged_with(group_tag.name).tag_counts.where('name != ?',group_tag.name).order('count DESC').limit(7)
 		%>

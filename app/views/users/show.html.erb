@@ -18,16 +18,30 @@
 		</aside>
 		<% if @user_feed.any? %>
 			<% if is_admin? or is_teacher? %>
-				<img src="<%=@reads_chart_url%>">
-			<% end %>
-			<% if is_admin? or is_teacher? %>
-				<img src="<%=@self_chart_url%>">
-			<% end %>
-			<% if is_admin? or is_teacher? %>
-				<img src="<%=@other_chart_url%>">
+				<% reads_chart_url = line_chart([@reads, @posts], 
+					[@x_axis.reverse, @read_range], 
+					["FF0000", "00FF00"], ["Reads", "Posts"], 
+					title="Reads by") %>
+				<img src="<%=reads_chart_url%>">
 			<% end %>
 			<% if current_user.id == @user.id or is_admin? or is_teacher? %>
-				<img src="<%=@personal_chart_url%>">
+				<% self_chart_url = bar_chart([@self_comment_bar, @self_tags_bar], 
+					axis=[@x_axis.reverse, @read_range], 
+					colors=["FF0000","00FF00"], 
+					width_and_spacing="3,0",
+					legend = ["Comments", "Tags"], 
+					title="Self") %>
+				<img src="<%=self_chart_url%>" title="Meta activity on own posts">
+			<% end %>
+			<% if current_user.id == @user.id or is_admin? or is_teacher? %>
+				<% personal_chart_url = bar_chart(
+					data=[@other_comment_bar, @other_tags_bar, @other_likes_bar, @other_bookmarks_bar],
+					axis=[@x_axis.reverse, @read_range], 
+					colors=["FF0000","00FF00","0000FF","A52A2A"],
+					width_and_spacing="3,0",
+					legend=["Comments", "Tags", "Likes", "Bookmarks"], 
+					title="Activity") %>
+				<img src="<%=personal_chart_url%>" title="Meta activity on other people's posts">
 			<% end %>						
 			<h3>Posts (<%= @user.blurts.count + @user.posts.count %>)</h3>
 			<ol class="posts">

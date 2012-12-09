@@ -8,7 +8,6 @@ gem 'rails', '3.2.3'
 gem 'sqlite3'
 gem 'googlecharts'
 gem 'acts-as-taggable-on'
-gem 'googlecharts'
 
 # Gems used only for assets and not required
 # in production environments by default.

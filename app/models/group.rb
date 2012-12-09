@@ -9,7 +9,7 @@ class Group < ActiveRecord::Base
   has_many :group_applications
   has_many :applications, :through => :group_applications, :source => :user
   
-  has_many :posts
+  has_many :posts, :order => 'created_at DESC'
 
   validates :name, presence: true, length: { within: 3..50 }, 
   	uniqueness: { case_sensitive: false }

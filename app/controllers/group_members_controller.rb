@@ -1,6 +1,6 @@
 class GroupMembersController < ApplicationController
   before_filter :signed_in_user
-  before_filter :group_admin?, only: [:new, :create, :update]
+  before_filter :teacher?, only: [:new, :create, :update]
   before_filter :correct_user, only: :destroy
 
   def create
@@ -23,7 +23,8 @@ class GroupMembersController < ApplicationController
   end
 
   def update
-  	@member = GroupMember.find(params[:id])
+  	@user = User.find(params[:id])
+    @member = GroupMember.find_by_user_id_and_group_id(@user.id, params[:group_id])
     respond_to do |format|
       if @member.update_attributes(role: params[:role])
         flash[:success] = "Membership updated successfully!"
@@ -42,9 +43,13 @@ private
     redirect_to root_path if @member.nil?
   end
 
-  def group_admin?
-    @group = Group.find(GroupMember.find(params[:user_id]).group_id)
-  	@group.group_members.find_by_user_id(current_user.id).role == "admin"
+  def teacher?
+    if params.has_key?("group_id")
+      @group = Group.find_by_id(params[:group_id])
+    else
+      @group = Group.find_by_id(params[:id])
+    end
+    GroupMember.teacher?(current_user.id, @group.id)
   end
 
 end

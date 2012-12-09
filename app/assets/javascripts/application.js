@@ -33,7 +33,13 @@ $(document).ready(function() {
     false;
   });
 
-  $('[id^=collapse]').collapse("hide");
+  $('[id^=datepicker]').change(function(event){
+    datefrom = $("#datepicker_from").val()
+    dateto = $("#datepicker_to").val();
+    path = $(location).attr('href').split('stats')[0];
+    url = path+'stats/'+datefrom+'/'+dateto;
+    $(location).attr('href',url);
+  });
 
   $('[id^=accordion]').on('hidden', function(e){
     e.stopPropagation()
@@ -48,6 +54,8 @@ $(document).ready(function() {
     i.removeClass('icon-chevron-right');
     i.addClass('icon-chevron-down');
   });
+
+  $('[id^="collapse"]').collapse({active: false});
 
 });
 

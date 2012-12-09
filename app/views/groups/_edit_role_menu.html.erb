@@ -4,11 +4,11 @@
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-			<li><%= link_to "Make admin", group_member_path(id: user, role: 'admin'), 
+			<li><%= link_to "Make admin", group_member_path(id: user, role: 'admin', group_id: @group.id), 
         method: :put %></li>
-      <li><%= link_to "Make teacher", group_member_path(id: user, role: 'teacher'), 
+      <li><%= link_to "Make teacher", group_member_path(id: user, role: 'teacher', group_id: @group.id), 
         method: :put %></li>
-      <li><%= link_to "Make student", group_member_path(id: user, role: 'student'), 
+      <li><%= link_to "Make student", group_member_path(id: user, role: 'student', group_id: @group.id), 
         method: :put %></li>      
 		</ul>
 </div>

@@ -1,0 +1,136 @@
+<%= link_to_unless(@group.is_closed?, raw("<i class='icon-edit'></i>"), edit_group_path,
+	class: "pull-left"){} %>
+<%= link_to_unless(@group.is_closed?, raw("<i class='icon-remove'></i>"), edit_group_path, 
+	class: "pull-left"){} %>
+<%= link_to_unless(@group.is_closed?, "Post to group", new_group_post_path(@group), 
+	class: "btn btn-large btn-primary pull-right"){} %>
+
+<h1><%= @group.name %></h1>
+<h3>Created by: <%= User.find(@group.user_id).email %></h3>
+<p><%= @group.description %></p>
+
+<script type="text/javascript" charset="utf-8">
+var read_chart;
+$(function () {
+	$( "#datepicker_from" ).datepicker();
+	$( "#datepicker_to" ).datepicker();
+  	read_chart = new Highcharts.Chart({
+	    chart: { 
+	    	renderTo: 'student_activity_chart',
+	    	zoomType: 'x',
+	    	type: 'column',
+	    	animation: false
+	    },
+	    title: { text: 'Reads per Day' },
+	    xAxis: { type: 'datetime' },
+	    yAxis: {
+	    	min: 0,
+	      	title: { text: 'Reads'},
+	      	stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+	    },
+	    plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: false,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                }
+        },
+	    series: [
+	    <% @users.each do |user| %>
+	    {
+		      	name: "<%= user.name %>",
+		      	pointInterval: <%= 1.day * 1000 %>,
+		      	pointStart: <%= @default_date_from.to_f * 1000 %>,
+		      	data: <%= user_reads_chart(user, @default_date_from, @default_date_to) %>
+	    },
+	    <% end %>]	    
+	});
+});
+var counter = 0;
+function show_all()
+{
+	b = $("#btn_show_all");
+	b.attr("disabled", "disabled");
+	$("#working").html("working...");
+	$("#btn_hide_all").removeAttr("disabled");
+	counter = 0;
+	setTimeout(process_show, 1);
+	$("#working").html("");
+}
+
+function hide_all()
+{
+	b = $("#btn_hide_all");
+	b.attr("disabled", "disabled");
+	$("#working").html("working...");
+	$("#btn_show_all").removeAttr("disabled");
+	counter = 0;
+	setTimeout(process_hide, 1);
+	$("#working").html("");
+}
+
+function process_show()
+{
+	read_chart.series[counter].show();
+	counter+=1;
+	if (counter < read_chart.series.length) {
+    	setTimeout(process_show, 1);
+  	}
+}
+
+function process_hide()
+{
+	read_chart.series[counter].hide();
+	counter+=1;
+	if (counter < read_chart.series.length) {
+    	setTimeout(process_hide, 1);
+  	}
+}
+</script>
+
+<% if is_group_admin?(@group) %>
+	<div class="accordion" id="accordionStats">
+
+	  <div class="accordion-group">
+	    <div class="accordion-heading">
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStats" href="#collapseOne">
+	        Student to student reads
+	      </a>
+	    </div>
+	    <div id="collapseOne" class="accordion-body collapse">
+	      <div class="accordion-inner">
+	        How much did each student read other student's contributions<br />
+	        do color from light to dark for "amount"<br />
+	        <h3>Student selector</h3>
+	        <div class="row">
+				<div id="student_activity_chart" style="width: 800px; height: 500px;"></div>
+				<button type="button" onclick="show_all()" class="btn-small" id="btn_show_all" disabled="disabled">Show all</button>
+				<button type="button" onclick="hide_all()" class="btn-small" id="btn_hide_all">Hide all</button>
+			</div>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="accordion-group">
+	    <div class="accordion-heading">
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStats" href="#collapseTwo">
+	        Student to student meta
+	      </a>
+	    </div>
+	    <div id="collapseTwo" class="accordion-body collapse">
+	      <div class="accordion-inner">
+	        how much did each student 'meta' on other student's contributions
+	      </div>
+	    </div>
+	  </div>	  
+
+	</div>
+<% end %>

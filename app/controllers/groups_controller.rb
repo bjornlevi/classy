@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
   before_filter :signed_in_user
   before_filter :correct_user, only: [:destroy, :edit, :update]
   before_filter :admin_access, only: [:new, :create]
-  before_filter :teacher_access, only: [:add_tag, :remove_tag]
+  before_filter :teacher_access, only: [:add_tag, :remove_tag, :stats, :user_stats]
 
   def index
     @groups = current_user.groups
@@ -92,6 +92,22 @@ class GroupsController < ApplicationController
     redirect_to @group
   end
 
+  #GET /groups/:id/stats
+  def stats
+    @users = @group.users
+    @default_date_from = @group.posts.created.first.created_at
+    @default_date_to = Date.today
+  end
+
+  def user_stats
+    @users = @group.users
+    date_from = params[:d_from]+'/'+params[:m_from]+'/'+params[:y_from]
+    date_to = params[:d_to]+'/'+params[:m_to]+'/'+params[:y_to]
+    @default_date_from = Time.parse(date_from)
+    @default_date_to = Time.parse(date_to)
+    render 'groups/stats'
+  end
+
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
@@ -130,12 +146,12 @@ class GroupsController < ApplicationController
     end
 
     def teacher_access
-      @group = Group.find(params[:group_id])
-      puts '*****************'
-      puts @group.id
-      puts current_user.id
-      puts '*****************'
-      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(current_user.id, @group.id)
+      if params.has_key?("group_id")
+        @group = Group.find_by_id(params[:group_id])
+      else
+        @group = Group.find_by_id(params[:id])
+      end
+      redirect_to groups_path, flash: {error: "Access restricted!"} if !GroupMember.teacher?(current_user.id, @group.id) or !Admin.exists?(user_id: current_user.id)
     end
 
     def record_not_found

@@ -54,6 +54,8 @@ Classy::Application.routes.draw do
     end
     collection do
       get 'all', as: 'all'
+      get ':id/stats' => 'groups#stats', as: 'stats'
+      get ':id/stats/:m_from/:d_from/:y_from/:m_to/:d_to/:y_to' => 'groups#user_stats', as: 'user_stats'
       put 'toggle_status/:id' => 'groups#toggle_status', as: 'toggle_status'
     end
   end
