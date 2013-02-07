@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
 
 	belongs_to :post, touch: true, counter_cache: true
 	belongs_to :user
+	has_one :group, through: :post
 
 	scope :created, order('created_at asc')
 

@@ -94,18 +94,22 @@ class GroupsController < ApplicationController
 
   #GET /groups/:id/stats
   def stats
+    @chart_type = params[:type] || 'activity'
+    case @chart_type
+      when "activity"
+        @data = Read.created
+      when "meta"
+        @data = meta_data = @group.likes.select("likes.user_id as user_id, date(likes.created_at) as created_at") + 
+                        @group.bookmarks.select("bookmarks.user_id as user_id, date(bookmarks.created_at) as created_at") +
+                        @group.comments.select("comments.user_id as user_id, date(comments.created_at) as created_at")
+      when "pie"
+        @data = Read.created
+    end
+      
+    
     @users = @group.users
     @default_date_from = @group.posts.created.first.created_at
-    @default_date_to = Date.today
-  end
-
-  def user_stats
-    @users = @group.users
-    date_from = params[:d_from]+'/'+params[:m_from]+'/'+params[:y_from]
-    date_to = params[:d_to]+'/'+params[:m_to]+'/'+params[:y_to]
-    @default_date_from = Time.parse(date_from)
-    @default_date_to = Time.parse(date_to)
-    render 'groups/stats'
+    @default_date_to = [@group.reads.first.created_at, @group.comments.last.created_at, @group.likes.last.created_at, @group.bookmarks.last.created_at].max
   end
 
   # DELETE /groups/1

@@ -15,6 +15,14 @@
 			:data => { :provide => 'typeahead', :source => @typeahead_tags},
 			class: "span2 tag_form", id: "create_group_tag" %>
 	</div>
+	<div class="row">
+		<div class="span12">
+			STATS : 
+			<%= link_to 'Reads', stats_groups_path(type: 'activity') %> | 
+			<%= link_to 'Meta', stats_groups_path(type: 'meta') %> |
+			<%= link_to 'Total reads', stats_groups_path(type: 'pie') %>
+		</div>
+	</div>
 	<%= render partial: 'shared/tags', 
 		locals: {title: "Group tags", tags: @group_tags, delete_link: true, group_link_delete: true, print_group_tags: true} %>
 	<%= render 'applicants' %>

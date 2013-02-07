@@ -3,6 +3,7 @@ class Bookmark < ActiveRecord::Base
 
   belongs_to :post
   belongs_to :user
+  has_one :group, through: :post
 
   scope :created, order('created_at asc')
 

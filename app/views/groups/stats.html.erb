@@ -10,127 +10,164 @@
 <p><%= @group.description %></p>
 
 <script type="text/javascript" charset="utf-8">
-var read_chart;
-$(function () {
-	$( "#datepicker_from" ).datepicker();
-	$( "#datepicker_to" ).datepicker();
-  	read_chart = new Highcharts.Chart({
+
+function column_chart(data, stacking, render, title, xtitle, ytitle)
+{
+	new Highcharts.Chart({
 	    chart: { 
-	    	renderTo: 'student_activity_chart',
+	    	renderTo: render,
 	    	zoomType: 'x',
 	    	type: 'column',
 	    	animation: false
 	    },
-	    title: { text: 'Reads per Day' },
-	    xAxis: { type: 'datetime' },
+	    title: { text: title },
+	    xAxis: { 
+	    	type: 'datetime',
+	    	text: xtitle
+	    },
 	    yAxis: {
 	    	min: 0,
-	      	title: { text: 'Reads'},
+	      	title: { text: ytitle},
 	      	stackLabels: {
-                    enabled: true,
-                    style: {
-                        fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                    }
-                }
+	                enabled: true,
+	                style: {
+	                    fontWeight: 'bold',
+	                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+	                }
+	            }
 	    },
 	    plotOptions: {
-                column: {
-                    stacking: 'normal',
-                    dataLabels: {
-                        enabled: false,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                    }
-                }
-        },
-	    series: [
-	    <% @users.each do |user| %>
-	    {
+	            column: {
+	                stacking: stacking,
+	                dataLabels: {
+	                    enabled: false,
+	                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+	                }
+	            }
+	    },
+	    series: data
+	});
+}
+
+function pie_chart(data, render, title)
+{
+	new Highcharts.Chart({
+	    chart: {
+	        renderTo: render,
+	        plotBackgroundColor: null,
+	        plotBorderWidth: null,
+	        plotShadow: false
+	    },
+	    title: {
+	        text: title
+	    },
+	    tooltip: {
+	        pointFormat: '{series.name}: <b>{Math.round(point.percentage)}%</b>',
+	        percentageDecimals: 1
+	    },
+	    plotOptions: {
+	        pie: {
+	            allowPointSelect: true,
+	            cursor: 'pointer',
+	            dataLabels: {
+	                enabled: true,
+	                color: '#000000',
+	                connectorColor: '#000000',
+	                formatter: function() {
+	                    return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage) +' %';
+	                }
+	            }
+	        }
+	    },
+	    series: [{
+	    	type: 'pie',
+	    	name: 'User share',
+	    	data: data //format [{name: slice_name, y: %_number, sliced: t/f, selected: t/f}, {}, ...]
+	    				//or format [['name', %number],[...], {...}, ...]
+	    }]
+	});
+}
+
+$(function () {
+	$( "#percent_chart" ).hide();
+	<% 	
+		case @chart_type
+		when "meta"
+			series_data = series_chart_from_a(@data, @default_date_from, @default_date_to)
+		else
+			series_data = series_chart(@data, @default_date_from, @default_date_to)
+		end
+	%>	
+
+	<% if @chart_type == "pie" %>
+		<% max_activity = series_data.map{|k,v| v.sum}.max %>
+		pie_data = [<% @users.each do |user| %>
+			["<%= user.name %>", <%= series_data.has_key?(user.id)? (series_data[user.id].sum*1.0/max_activity).round(2) : 0 %>],
+		<% end %>]
+	<% else %>
+		activity_data = [<% @users.each do |user| %>
+		    {
 		      	name: "<%= user.name %>",
 		      	pointInterval: <%= 1.day * 1000 %>,
 		      	pointStart: <%= @default_date_from.to_f * 1000 %>,
-		      	data: <%= user_reads_chart(user, @default_date_from, @default_date_to) %>
-	    },
-	    <% end %>]	    
-	});
+		      	data: <%= series_data.has_key?(user.id)? series_data[user.id]:[0] %>
+		    },
+		<% end %>]
+	<% end %>
+
+	<% if @chart_type == 'activity' %>
+	  	chart = column_chart(activity_data, 'normal', 'chart', 'Reads per day', 'Date', 'Reads');
+	  	percent_chart = column_chart(activity_data, 'percent', 'percent_chart', 'Reads per day', 'Date', 'Reads');
+	<% elsif @chart_type == 'meta' %>
+		chart = column_chart(activity_data, 'normal', 'chart', 'Meta per day', 'Date', 'Meta actions');
+  		percent_chart = column_chart(activity_data, 'percent', 'percent_chart', 'Meta per day', 'Date', 'Meta actions');
+  	<% elsif @chart_type == 'pie' %>
+		chart = pie_chart(pie_data, 'chart', 'User total read activity');
+		//hide the buttons
+		$("#btn_percent_toggle").hide();
+		$("#btn_show_all").hide();
+	<% end %>
 });
-var counter = 0;
-function show_all()
-{
-	b = $("#btn_show_all");
-	b.attr("disabled", "disabled");
-	$("#working").html("working...");
-	$("#btn_hide_all").removeAttr("disabled");
-	counter = 0;
-	setTimeout(process_show, 1);
-	$("#working").html("");
+
+function toggleAll(c) {
+    for (var i = 0; i < c.series.length; i++) {
+       var serie = c.series[i];
+        serie.setVisible(!serie.visible, false);
+    }
+    c.redraw();
 }
 
-function hide_all()
+function meta_toggle()
 {
-	b = $("#btn_hide_all");
-	b.attr("disabled", "disabled");
-	$("#working").html("working...");
-	$("#btn_show_all").removeAttr("disabled");
-	counter = 0;
-	setTimeout(process_hide, 1);
-	$("#working").html("");
+	if ($("#percent_chart").is(":visible"))
+	{
+		$("#percent_chart").hide();
+		$("#chart").show();
+		$("#btn_percent_toggle").html("Meta");
+	}
+	else
+	{
+		$("#chart").hide();
+		$("#percent_chart").show();
+		$("#btn_percent_toggle").html("Normal");
+	}
 }
 
-function process_show()
-{
-	read_chart.series[counter].show();
-	counter+=1;
-	if (counter < read_chart.series.length) {
-    	setTimeout(process_show, 1);
-  	}
-}
-
-function process_hide()
-{
-	read_chart.series[counter].hide();
-	counter+=1;
-	if (counter < read_chart.series.length) {
-    	setTimeout(process_hide, 1);
-  	}
-}
 </script>
 
 <% if is_group_admin?(@group) %>
-	<div class="accordion" id="accordionStats">
-
-	  <div class="accordion-group">
-	    <div class="accordion-heading">
-	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStats" href="#collapseOne">
-	        Student to student reads
-	      </a>
-	    </div>
-	    <div id="collapseOne" class="accordion-body collapse">
-	      <div class="accordion-inner">
-	        How much did each student read other student's contributions<br />
-	        do color from light to dark for "amount"<br />
-	        <h3>Student selector</h3>
-	        <div class="row">
-				<div id="student_activity_chart" style="width: 800px; height: 500px;"></div>
-				<button type="button" onclick="show_all()" class="btn-small" id="btn_show_all" disabled="disabled">Show all</button>
-				<button type="button" onclick="hide_all()" class="btn-small" id="btn_hide_all">Hide all</button>
-			</div>
-	      </div>
-	    </div>
-	  </div>
-
-	  <div class="accordion-group">
-	    <div class="accordion-heading">
-	      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStats" href="#collapseTwo">
-	        Student to student meta
-	      </a>
-	    </div>
-	    <div id="collapseTwo" class="accordion-body collapse">
-	      <div class="accordion-inner">
-	        how much did each student 'meta' on other student's contributions
-	      </div>
-	    </div>
-	  </div>	  
-
+	<div class="row">
+		<div class="span12">
+			STATS : 
+			<%= link_to 'Reads', stats_groups_path(type: 'activity') %> | 
+			<%= link_to 'Meta', stats_groups_path(type: 'meta') %> |
+			<%= link_to 'Total reads', stats_groups_path(type: 'pie') %>
+		</div>
+	</div>
+    <div class="row">
+		<div id="chart" style="width: 800px; height: 500px;"></div>
+		<div id="percent_chart" style="width: 800px; height: 500px;"></div>
+		<button type="button" onclick="toggleAll(chart)" class="btn-small" id="btn_show_all">Show/Hide</button>
+		<button type="button" onclick="percent_toggle()" class="btn-small" id="btn_percent_toggle">Percent</button>
 	</div>
 <% end %>

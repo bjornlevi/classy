@@ -9,7 +9,14 @@ class Group < ActiveRecord::Base
   has_many :group_applications
   has_many :applications, :through => :group_applications, :source => :user
   
-  has_many :posts, :order => 'created_at DESC'
+  has_many :posts, :order => 'created_at DESC' 
+
+  has_many :likes, :through => :posts
+  has_many :bookmarks, :through => :posts
+  has_many :comments, :through => :posts
+  has_many :reads, :order=> 'created_at DESC', :through => :posts
+
+  scope :meta, includes([:likes, :bookmarks, :comments])
 
   validates :name, presence: true, length: { within: 3..50 }, 
   	uniqueness: { case_sensitive: false }
